@@ -1,0 +1,30 @@
+#profile{
+	width:25%;
+	background:white;
+	position:absolute;
+	right:10%;
+	top:10rem;
+}
+
+#tagSection{
+	padding:2rem;
+	margin-bottom:2rem;
+}
+
+#tagSection .tags{
+	display:inline-block;
+	border:1px solid black;
+	margin:0.3rem;
+	padding:0.2rem 1rem;
+	border-radius:1rem;
+}
+
+#footer{
+	padding:2rem;
+	color:grey;
+}
+
+#footer a{
+	color:grey;
+	text-decoration:none;
+}

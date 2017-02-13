@@ -1,0 +1,19 @@
+doctype html
+html
+	head
+		title #{title}
+		link(rel='stylesheet', href='/stylesheets/main.css')
+		link(rel='stylesheet', href='/stylesheets/header.css')
+		link(rel='stylesheet', href='/stylesheets/content.css')
+		link(rel='stylesheet', href='/stylesheets/profile.css')
+		link(rel='stylesheet', href='/stylesheets/new-debate-dialog.css')
+		link(rel='stylesheet', href='/stylesheets/font-awesome-4.7.0/css/font-awesome.min.css')
+		link(rel='stylesheet', href='/stylesheets/content-grid.css')
+		script(src='/javascripts/jquery-3.1.1.min.js')
+		
+	body
+		include includes/header.pug
+		block content
+		block profile
+		script(src='/javascripts/main.js')
+		//script(src='/javascripts/content-grid.js')

@@ -1,0 +1,12 @@
+*{
+	margin:0;
+	padding:0;
+}
+html{
+	font-size:12px;
+}
+body {
+  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background:#DDD;
+}
+

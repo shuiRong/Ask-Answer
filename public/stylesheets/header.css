@@ -1,0 +1,62 @@
+#header{
+	background:black;
+	width:100%;
+	height:5rem;
+	position:relative;
+}
+#header .navSpan, #header .denglu{
+	display:inline-block;
+	color:white;
+	font-size:2.7rem;
+	position:absolute;
+	top:0.8rem;
+}
+
+#header .navSpan{
+	left:15%;
+}
+
+#header .denglu{
+	right:15%;
+	background:white;
+	color:black;
+	width:7rem;
+	height:2.5rem;
+	border:1px solid transparent;
+	border-radius:0.3rem;
+	text-align:center;
+	padding-top:0.5rem;
+	font-size:1.5rem;
+}
+
+#search{
+	position:absolute;
+	top:0.8rem;
+	right:calc(15% + 8rem);
+}
+#search input{
+	width:20rem;
+	height:3rem;
+	outline:none;
+	padding-left:1rem;
+}
+#search span{
+	display:inline-block;
+	height:2.2rem;
+	font-size:1.5rem;
+	position:relative;
+	color:#ddd;
+	background: white;
+	top:0.1rem;
+	padding-top:0.8rem;
+	right:2.5rem;
+}
+
+
+
+
+
+
+
+
+
