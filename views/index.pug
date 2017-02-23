@@ -9,16 +9,19 @@ block content
 			span#askSpan(class='fa fa-question fa-3x')  提问
 			span#ansSpan(class='fa fa-edit fa-3x')  回答
 		ul#content-grid
-			each item in data
-				li
-					image.itemImage(src=item['image'])
-					.li-content
-						a.itemTitle(href='/question/123.pug' target='_black') #{item['title']}
-						p.itemDes #{item['description']}
-						br
-						image.answerImage(src=item['answerImage'])
-						span.answerName #{item['answerName']}
-						span.itemTag #{item['tag']}						
+			if data
+				each item in data
+					li
+						image.itemImage(src=item['image'])
+						.li-content
+							a.itemTitle(href='/question/123.pug' target='_black') #{item['title']}
+							p.itemDes #{item['description']}
+							br
+							image.answerImage(src=item['answerImage'])
+							span.answerName #{item['answerName']}
+							span.itemTag #{item['tag']}	
+			else
+				h1 暂时没有数据					
 
 	
 block profile

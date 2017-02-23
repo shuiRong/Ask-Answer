@@ -10,8 +10,9 @@ var assert = require('assert');*/
 /*----------------------------------------------------------------------------*/
 
 var index = require('./routes/index');
-var users = require('./routes/users');
-var indexApi = require('./routes/index-api');
+var door = require('./routes/door');
+var signin = require('./routes/signin');
+var signup = require('./routes/signup');
 
 var app = express();
 
@@ -29,9 +30,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,('public'))));
 app.use(express.static(path.join(__dirname,('routes'))));
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/api',indexApi);
+app.use('/', door);
+app.use('/door',door);
+app.use('/signin',signin);
+app.use('/signup',signup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,30 +53,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-/*----------------------------------------------------------------------------*/
-
-/*MongoClient.connect('mongodb://127.0.0.1:27017/test2',function(err,db){
-	/*assert.equal(null,err);*/
-/*	if(err){
-		throw err;
-	}
-	console.log('Connected successfully---------------');
-	insertDoc(db,function(){
-		db.close();
-	})
-*/
-	/*db.collection('restaurants').find({'grades.score':{$gt:95}}).toArray(function(err,result){
-		if(err){
-			throw err;
-		}
-
-		console.log(result);
-	})*/
-//})
-
-//function insertDoc()
-
-
-/*----------------------------------------------------------------------------*/
 
 module.exports = app;

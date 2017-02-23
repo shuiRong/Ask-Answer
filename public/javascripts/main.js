@@ -1,29 +1,32 @@
-window.onload = function(){
+$(document).ready(function(){
 	listen();
-}
+});
 
 function listen(){
 
 	//监听提问按钮。 点击后显示提问窗口并且模糊化页面其它部分
-	$('#askSpan').on('click',function(){
-		$('#newDebateDialog').attr('style','display:block');
-		var coverDiv = $('<div></div>');
-		$(coverDiv).attr('id','coverDiv');
-		$("body").append(coverDiv);
+	$('#askSpan').click(function(){
+		$('#newDebateDialog').css('display','block');
+		if(){
+			var coverDiv = $('<div></div>');
+			$(coverDiv).attr('id','coverDiv');
+			$("body").append(coverDiv);
+		}
+		$('#coverDiv').css('display','block');
 	});
 
 	//监听提问框的取消和叉叉
-	$('#ddCancelTwo').on('click',function(){
+	$('#ddCancelTwo').click(function(){
 		cancel();
 	});
-	$('#ddCancelOne').on('click',function(){
+	$('#ddCancelOne').click(function(){
 		cancel();
 	});
 
 	//监听时 使用的方法
 	function cancel(){
-		$('#newDebateDialog').attr('style','display:none');
-		$('#coverDiv').attr('style','display:none');
+		$('#newDebateDialog').css('display','none');
+		$('#coverDiv').css('display','none');
 	};
 
 	//提问框的 提交按钮 的监听事件

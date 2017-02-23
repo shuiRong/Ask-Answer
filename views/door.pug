@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        link(rel='stylesheet' href='/stylesheets/door.css')
+        title 问吧 - 一个随心所问的社区
+        
+    body
+        div#container
+            h1 问吧
+            p#subH1 告诉我,你想知道什么?
+            div#signInAndUp
+                span#signinBtn 登录  
+                span#signupBtn 注册                
+            form#signinForm(action='signin' method='post')
+                span 用户名:
+                input(type='text' name='usernamename')
+                span 密码:
+                input(type='password' name='passwordname')
+                input(type='submit' value='登录')
+            form#signupForm(action='/signup' method='post')
+                span 用户名: 
+                input(type='text' name='usernamename')
+                span 密码:
+                input(type='password' name='passwordname')
+                span 重复密码:
+                input(type='password' name='passwordname2')
+                input(type='submit' value='注册')
+        script(src='/javascripts/jquery-3.1.1.min.js')
+        script(src='/javascripts/publicDoor.js')

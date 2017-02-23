@@ -1,7 +1,10 @@
 div#profile
 	div#tagSection
-		each tag in tags
-			span.tags #{tag}
+		if tags
+			each tag in tags
+				span.tags #{tag}
+		else 
+			h1 暂时没有标签数据
 	div#footer
 		| 此网站是作者学习Node.js时的产物，也是第一次尝试自己搞定前后端。
 		br
