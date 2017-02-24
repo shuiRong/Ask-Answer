@@ -10,6 +10,12 @@ UserSchema = new mongoose.Schema({
   password: { //password
     type: String,
     required: true
+  },
+  'ask-question': { //提问的问题,id值存在数组里
+    type: []
+  },
+  'ans-question': { // 回答的问题,id值存在数组里
+    type: []
   }
 });
 

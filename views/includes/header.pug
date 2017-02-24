@@ -3,4 +3,9 @@ div#header
 	#search
 		input(placeholder='搜索问题')
 		span.fa.fa-search
-	span.denglu #{username}
+	div#signin #{username}
+		div#signinHover
+			p(class='fa fa-user') 
+				<a href='127.0.0.1:3000/users'>个人主页</a>
+			p(class='fa fa-power-off') 
+				<a href='127.0.0.1:3000/'>退出</a>

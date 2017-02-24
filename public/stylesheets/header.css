@@ -4,7 +4,7 @@
 	height:5rem;
 	position:relative;
 }
-#header .navSpan, #header .denglu{
+#header .navSpan, #header #signin{
 	display:inline-block;
 	color:white;
 	font-size:2.7rem;
@@ -16,18 +16,36 @@
 	left:15%;
 }
 
-#header .denglu{
-	right:15%;
+#header #signin{
 	background:white;
 	color:black;
-	width:7rem;
+	width:10rem;
 	height:2.5rem;
 	border:1px solid transparent;
 	border-radius:0.3rem;
 	text-align:center;
 	padding-top:0.5rem;
 	font-size:1.5rem;
+	right:12%;
 }
+#signinHover{
+	position:relative;
+	left:-1px;
+	width:10rem;
+	height:5rem;
+	background: white;
+	border-radius:0 0 0.3rem 0.3rem;
+	border:1px solid transparent;
+	margin-top:2px;
+	text-align:left;
+	display:none;
+}
+#signinHover p{
+	margin-top:0.7rem;
+	margin-left:1rem;
+}
+
+
 
 #search{
 	position:absolute;
