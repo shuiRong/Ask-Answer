@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    div#userPage
+        div#userHeader
+            div#uh-section
+                div#uhs-img(src='#')
+                div#uhs-right
+                    span #{username}
+                    each tag in selfTags
+                        span.uhs-tags #{tag}
+                    p #{motto}
+        div#userMain
+            div#uMainLeft
+            div#uMainRight
+

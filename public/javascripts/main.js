@@ -24,9 +24,10 @@ function listen(){
 	});
 		
 	//提问框的 提交按钮 的监听事件
+	var username= unescape(unescape(getCookie('user')));
 	$('#release').on('click',function(){
-		var question = {'title':null,'description':null,'tags':null,'time':null,'questionProducer':null};
-		question.questionProducer = getCookie('user');
+		let question = {'title':null,'description':null,'tags':null,'time':null,'questionProducer':null};
+		question.questionProducer = username;
 		question.title = $('#textareaOne').val();
 		question.description = $('#textareaTwo').val();
 		question.tags = $('#textareaThree').val();
@@ -52,8 +53,8 @@ function listen(){
 		//....
 	});
 
-	//导航栏 用户主页的点击
-
+	//导航栏 个人用户: 根据cookie的user改变a的href属性
+	$('#userPage').attr('href','127.0.0.1:3000/users/' + username);
 
 }
 

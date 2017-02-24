@@ -4,17 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-/*----------------------------------------------------------------------------*/
-/*var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');*/
-/*----------------------------------------------------------------------------*/
+
 
 var index = require('./routes/index');
 var door = require('./routes/door');
 var signin = require('./routes/signin');
 var signup = require('./routes/signup');
 var newquestion = require('./routes/api/newquestion');
-
+var users = require('./routes/users');
 
 var app = express();
 
@@ -37,7 +34,7 @@ app.use('/door',door);
 app.use('/signin',signin);
 app.use('/signup',signup);
 app.use('/api/newquestion',newquestion);
-
+app.use('/users/*',users); //个人主页
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

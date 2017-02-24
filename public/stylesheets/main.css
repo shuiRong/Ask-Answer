@@ -6,7 +6,9 @@ html{
 	font-size:12px;
 }
 body {
-  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background:#DDD;
+  font: 12px;
+	font-family:'Microsoft YaHei','Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Noto Sans CJK SC','WenQuanYi Micro Hei',Arial,sans-serif;
+  background:#ddd;
+	min-width:680px;
 }
 
