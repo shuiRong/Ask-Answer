@@ -54,7 +54,7 @@ function listen(){
 	});
 
 	//导航栏 个人用户: 根据cookie的user改变a的href属性
-	$('#userPage').attr('href','127.0.0.1:3000/users/' + username);
+	$('#userPageBtn').attr('href','/users/' + username);
 
 }
 

@@ -24,7 +24,7 @@ QuestionSchema = new mongoose.Schema({
     required: true 
   },
   answers: { //问题的回答的id
-    type: [],
+    type: []
   }
 });
 

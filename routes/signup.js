@@ -36,7 +36,9 @@ router.route('/')
           pw = md5.digest('hex'); //把密码转换成16进制的字符串
           var user = new User({
             username: un,
-            password: pw
+            password: pw,
+            'ask-question': [],
+            'answers': []
           });
           user.save(function(err,doc){
             if(err){
@@ -54,9 +56,9 @@ router.route('/')
           //
           res.redirect('/');
         }else{
-          //res.redirect('/register');
+          res.redirect('/');
         }
-        res.redirect('/');
+        
       }
     })
   });
