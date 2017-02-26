@@ -99,8 +99,38 @@
     margin: 0 2rem;
 }
 #umlm-quest{
-    
+    background: grey;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
 }
+#umlm-quest .item{
+    background: lightcoral;
+    margin-bottom: 1rem;
+}
+#umlm-quest .item-title{
+    font-size: 25px;
+    margin-bottom: 1rem;
+}
+#umlm-quest .item-time-tags{
+    display: flex;
+    
+    justify-content: space-between;
+}
+#umlm-quest .item-time{
+    font-size: 17px;
+}
+#umlm-quest .item-tags-div{
+
+}
+#umlm-quest .item-tag{
+    font-size: 15px;
+    margin: 0 5px;
+}
+
+
+
+
 #umlm-ans{
     display:none;
 }

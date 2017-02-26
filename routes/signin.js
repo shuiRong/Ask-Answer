@@ -12,9 +12,7 @@ router.route('/')
     res.render('door');
   })
   .post(function(req,res,next){
-    console.log('触发post');
-    
-    //从请求的表单中得到帐号密码
+    //从请求的表单中得到帐号密码  
     let un = req.body.usernamename;
     let pw = req.body.passwordname;
     let ok = false;  //log in done ? true : false
@@ -27,7 +25,6 @@ router.route('/')
           console.log('------此帐号不存在-------');
         }else{
           //在帐号存在的条件下，查询此帐号的密码
-
           //create a hash instance of md5/创建一个MD5的hash实例
           var md5 = crypto.createHash('md5'); 
           md5.update(pw);

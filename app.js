@@ -11,6 +11,7 @@ var door = require('./routes/door');
 var signin = require('./routes/signin');
 var signup = require('./routes/signup');
 var newquestion = require('./routes/api/newquestion');
+var getuserquestion = require('./routes/api/getuserquestion');
 var users = require('./routes/users');
 
 var app = express();
@@ -34,6 +35,7 @@ app.use('/door',door);
 app.use('/signin',signin);
 app.use('/signup',signup);
 app.use('/api/newquestion',newquestion);
+app.use('/api/getuserquestion',getuserquestion);
 app.use('/users/*',users); //个人主页
 
 // catch 404 and forward to error handler

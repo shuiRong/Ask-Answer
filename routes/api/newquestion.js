@@ -14,13 +14,14 @@ router.route('/')
         quest.time = new moment().format(); //加入问题提交的时间  2017-02-24T19:31:42+08:00
         quest.time = new moment().format().replace(/\+.*/,''); 
         quest.tags = quest.tags.split(/[,，; ]/);
-        
+        let user = unescape(unescape(quest.questionProducer));
+
         let question = new Question({
             title: quest.title,
             description: quest.description,
             tags: quest.tags,
             time: quest.time,
-            questionProducer: quest.questionProducer,
+            questionProducer: user,
         })
         question.save(function(err,doc){
             if(err){
@@ -28,21 +29,20 @@ router.route('/')
             }else{
                 console.info('>>> Questoin save success!');
                 //把此问题的_id 添加到 此用户的数据里
-                let questionIds = [doc['_id']]; 
-                console.log('<<< 问题的id: ' + questionIds);
+                let questionIds = [doc['_id']];     
                 // 获取之前的 ask-question 数组里的信息并合成新的
-                User.findOne({'username': quest.questionProducer},'askQuestions',function(err,doc2){
+                User.findOne({'username': user},'askQuestions',function(err,doc2){
                     if(err){
                         console.error('=== find askQuestions of User error: ' + err);                
                     }else{                                                
                         //获取用户之前的问题id,然后和新问题的id合并
                         questionIds = questionIds.concat(doc2['askQuestions']); 
                         //他娘的,忘了mongoose的CRUD操作都是异步执行的,坑死我了. 差一点怀疑人生,从此弃坑!!!
-                        User.updateOne({'username': quest.questionProducer},{$set:{'askQuestions': questionIds}},function(err,number){
+                        User.updateOne({'username': user},{$set:{'askQuestions': questionIds}},function(err,number){
                             if(err){
                                 console.error('=== error: ' + err);
                             }else{
-                                console.log('number: ' + number);            
+                                console.log('<<< 更新用户 提问 数据: 成功! ');
                             }
                         });
                     }                                    

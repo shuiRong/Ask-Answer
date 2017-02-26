@@ -24,7 +24,7 @@ function listen(){
 	});
 		
 	//提问框的 提交按钮 的监听事件
-	var username= unescape(unescape(getCookie('user')));
+	var username= getCookie('user');
 	$('#release').on('click',function(){
 		let question = {'title':null,'description':null,'tags':null,'time':null,'questionProducer':null};
 		question.questionProducer = username;

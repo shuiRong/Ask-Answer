@@ -23,10 +23,26 @@ function userPageListen(){
 
 
 function renderData(arr,username){
-    
-    $.post('/api/getuser' + arr,{username: username},function(data){
-        console.log('获取用户 提问or回答 数据: ' + data.status);
-        
+    console.log('开始查询 提问数据');
+    $.post('/api/getuser' + arr,{username: username},function(res){
+        console.log('获取用户提问or回答数据状态: ' + res.status);
+        console.log('data: ' + res.data);
+        if(user==='question'){
+            $('#mhlh-num2').text(res.data.length);
+
+            let temp = $('<div></div>');
+            let titleP = $('<p></p>');
+            let spanTime = $('<span></span>');
+            let tags = $('<span></span>');
+            res.data.forEach(function(ele){
+
+
+            })
+            
+
+        }else{
+
+        }
     });
 }
 
