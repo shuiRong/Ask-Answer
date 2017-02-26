@@ -53,6 +53,23 @@
     letter-spacing: 1px;
 }
 
+#userEdit{
+    width: 12rem;
+    height: 2.3rem;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 0.7rem;
+    position: absolute;
+    bottom: 3rem;
+    right: 2rem;
+    border-radius: 0.3rem;
+}
+#userEdit:hover{
+    color: grey;
+    border-color: grey;
+}
+
 /*```````````````````````*/
 
 #userMain{
@@ -64,7 +81,6 @@
 #uMainLeft{
     background: white;
     width: 62%;
-    min-height: 12rem;
     border-radius: 0.3rem;
     display: flex;
     -webkit-flex-direction: column;
@@ -119,20 +135,38 @@
     font-size: 15px;
     color: grey;
 }
-#umlm-quest .item-tags-div{
-
-}
 #umlm-quest .item-tag{
     font-size: 15px;
     margin: 0 5px;
     color: grey;
 }
 
-
-
-
 #umlm-ans{
     display:none;
+    display: flex;
+    flex-direction: column;
+}
+#umlm-ans .item{
+    margin: 1rem 0;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #ddd;
+}
+#umlm-ans .item-title{
+    font-size: 20px;
+}
+#umlm-ans .item-answer{
+    font-size: 15px;
+    margin: 1rem 0;
+    letter-spacing: 1px;
+}
+#umlm-ans .item-time{
+    font-size: 15px;
+    color: grey;
+}
+#umlm-ans .item-comment{
+    font-size: 15px;
+    margin-left: 2rem;
+    color: grey;
 }
 
 

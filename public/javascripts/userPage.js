@@ -1,27 +1,37 @@
-$(document).ready(function(){
+$(document).ready(function(){    
     userPageListen();
-    
+    questionClicked();    
 });
 
-
-
 function userPageListen(){
+    console.log('ads');
     //监听回答 button
-    $('#uml-header span:first').click(function(){
-        $('#umlm-quest').css('display','none');
-        $('#umlm-ans').css('display','flex');
-        renderData('answer',getCookie('user'));
+    $('#umlh-num3').click(function(){
+        answerClicked();
     });
     //监听提问 button
-    $('#uml-header  span:last-child').click(function(){
-        $('#umlm-ans').css('display','none');
-        $('#umlm-quest').css('display','flex');       
-        if($('#umlm-quest').children().length===0){  //如果此元素子元素为0,就从服务区获取数据,并渲染
-            renderData('question',getCookie('user'));
-        }        
+    $('#umlh-num1').click(function(){
+        questionClicked();
     });
 }
 
+function questionClicked(){
+    $('#umlm-ans').css('display','none');
+    $('#umlm-quest').css('display','flex');
+    $('#umlh-num1').css('font-weight','bold');
+    $('#umlh-num3').css('font-weight','normal');
+    if($('#umlm-quest').children().length===0){  //如果此元素子元素为0,就从服务区获取数据,并渲染
+        renderData('question',getCookie('user'));
+    }   
+}
+
+function answerClicked(){
+    $('#umlm-quest').css('display','none');
+    $('#umlm-ans').css('display','flex');
+    $('#umlh-num3').css('font-weight','bold');
+    $('#umlh-num1').css('font-weight','normal');
+    renderData('answer',getCookie('user'));
+}
 
 
 function renderData(arr,username){
@@ -55,7 +65,7 @@ function renderData(arr,username){
                 $('#umlm-quest').append(item);
             });            
         }else if(arr==='answer'){
-            
+
         }
     });
 }
