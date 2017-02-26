@@ -1,6 +1,5 @@
 #userPage{
     width: 55%;
-    height: 100rem;
     margin: 2rem auto;
     display: flex;
     flex-direction: column;
@@ -9,7 +8,7 @@
 #userHeader{
     background: white;
     width: 100%;
-    height: 30%;
+    height: 25rem;;
     margin-bottom: 2rem;
     border-radius: 0.3rem;
     position:relative;
@@ -60,13 +59,12 @@
     width: 100%;
     display:flex;
     justify-content: space-between;
-    border: 1px solid #ddd;
 }
 
 #uMainLeft{
     background: white;
     width: 62%;
-    height: 55rem;
+    min-height: 12rem;
     border-radius: 0.3rem;
     display: flex;
     -webkit-flex-direction: column;
@@ -74,10 +72,12 @@
     -ms-flex-direction: column;
     -o-flex-direction: column;
     flex-direction: column;
+    border: 1px solid #ddd;
 }
 #uml-header{
     height: 5rem;
-    margin: 0 2rem 2rem 2rem;
+    margin: 2rem 2rem 0 2rem;
+    padding-bottom: 1rem;
     font-size: 18px;
     display: inline-flex;
     align-items: center;
@@ -94,31 +94,30 @@
 }
 
 #uml-main{
-    height: 50rem;
-    background: green;
+    /*min-height: 5rem;*/
     margin: 0 2rem;
 }
-#umlm-quest{
-    background: grey;
+#umlm-quest{    
     padding: 1rem;
     display: flex;
     flex-direction: column;
 }
 #umlm-quest .item{
-    background: lightcoral;
     margin-bottom: 1rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #ddd;
 }
 #umlm-quest .item-title{
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 1rem;
 }
 #umlm-quest .item-time-tags{
     display: flex;
-    
     justify-content: space-between;
 }
 #umlm-quest .item-time{
-    font-size: 17px;
+    font-size: 15px;
+    color: grey;
 }
 #umlm-quest .item-tags-div{
 
@@ -126,6 +125,7 @@
 #umlm-quest .item-tag{
     font-size: 15px;
     margin: 0 5px;
+    color: grey;
 }
 
 
@@ -141,6 +141,7 @@
     width: 35%;
     height: 40rem;
     border-radius: 0.3rem;
+    border: 1px solid #ddd;
 }
 
 /*`````````````````````````*/

@@ -15,8 +15,10 @@ function userPageListen(){
     //监听提问 button
     $('#uml-header  span:last-child').click(function(){
         $('#umlm-ans').css('display','none');
-        $('#umlm-quest').css('display','flex');
-        renderData('question',getCookie('user'));
+        $('#umlm-quest').css('display','flex');       
+        if($('#umlm-quest').children().length===0){  //如果此元素子元素为0,就从服务区获取数据,并渲染
+            renderData('question',getCookie('user'));
+        }        
     });
 }
 
@@ -27,21 +29,33 @@ function renderData(arr,username){
     $.post('/api/getuser' + arr,{username: username},function(res){
         console.log('获取用户提问or回答数据状态: ' + res.status);
         console.log('data: ' + res.data);
-        if(user==='question'){
+        if(arr==='question'){
             $('#mhlh-num2').text(res.data.length);
-
-            let temp = $('<div></div>');
-            let titleP = $('<p></p>');
-            let spanTime = $('<span></span>');
-            let tags = $('<span></span>');
+            //动态添加 DOM 元素
             res.data.forEach(function(ele){
+                let item = $('<div class="item"></div>');
+                let itemTitle = $('<p class="item-title"></p>');
+                let itemTimeTags = $('<div class="item-time-tags"></div>');
+                let itemTime = $('<span class="item-time"></span>');
+                let itemTagsDiv = $('<div class="item-tags-div"></span>');
+                let itemTag = $('<span class="item-tag"></span>');
 
-
-            })
+                itemTitle.text(ele.title);
+                time = ele.time.replace(/[T]/,' ').replace(/.{13}Z/,'');
+                itemTime.text(time);
+                ele.tags.forEach(function(ele){                    
+                    itemTag.text(ele);
+                    itemTagsDiv.append(itemTag);
+                    itemTag = $('<span class="item-tag"></span>');                                
+                });
+                itemTimeTags.append(itemTime);
+                itemTimeTags.append(itemTagsDiv);
+                item.append(itemTitle);
+                item.append(itemTimeTags);
+                $('#umlm-quest').append(item);
+            });            
+        }else if(arr==='answer'){
             
-
-        }else{
-
         }
     });
 }
