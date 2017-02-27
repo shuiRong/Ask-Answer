@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	listen();
+	popularBtnClicked();
 });
 
 function listen(){
@@ -56,14 +57,32 @@ function listen(){
 	$('#userPageBtn').attr('href','/users/' + username);
 
 	//最热问题, 从数据库获取内容,动态添加.
-	$('#popularBtn').click(function(){
-		addPopQuestion();
-	});
+	$('#popularBtn').click(popularBtnClicked);
 	//最新提问
-	$('#newBtn').click(function(){
-		addNew();
-	});
+	$('#newBtn').click(newBtnClicked);
 
+}
+
+function popularBtnClicked(){
+	$('#content-grid-pop').css('display','flex');
+	$('#content-grid-new').css('display','none');
+	//热门问题 添加下划线,表示当前选择
+	$('#popularBtn').addClass('buttonUnderline');
+	$('#newBtn').removeClass('buttonUnderline');
+	//没有子元素,也就是还没有渲染,进行渲染
+	if($('#content-grid-pop').children().length == 0){
+		addPopQuestion();
+	}
+}
+
+function newBtnClicked(){
+	$('#content-grid-pop').css('display','none');
+	$('#content-grid-new').css('display','flex');
+	$('#popularBtn').removeClass('buttonUnderline');
+	$('#newBtn').addClass('buttonUnderline');
+	if($('#content-grid-new').children().length == 0){
+		addNew();
+	}
 }
 
 
@@ -71,52 +90,52 @@ function listen(){
 function addPopQuestion(){
 	$.post('/api/getquestion',{'arr': 'popular'},function(res){
 		console.log(res.status);
-		console.log(res.data);
-		let contentGrid = $('#content-grid');
-		data.forEach(function(ele){
-			init();
-			itemImage.attr('src',ele.image); //数据库里还没有
-			itemTitle.attr('href',ele.questionLink);//数据库里还没有
-			itemTitle.attr('target','_blank');
-			itemTitle.text(ele.title);
-			itemDes.text(ele.description);			
-			questionProducer.text(ele.questionProducer);
-			ele.tags.forEach(function(ele){
-				itemTag = $('<span></span>');
-				itemTag.text(ele);
-				itemTags.append(itemTag);
-			});
-			
-			liContent.append(itemTitle);
-			liContent.append(itemDes);
-			liContent.append(questionPruducer);
-			liContent.append(itemTags);
-			itemLi.append(itemImage);
-			itemLi.append(liContent); 
-		});
-
+		let contentGridPop = $('#content-grid-pop');
+		dynamicAddDOM(contentGridPop,res.data);
 	});
-
-	let init = function(){
-		let itemLi = $('<li></li>');
-		let itemImage = $('<img>');
-		let liContent = $('<div></div>');
-		let itemTitle = $('<a></a>');
-		let itemDes = $('<p></p>');		
-		let questionProducer = $('<span></span>');
-		let itemTags = $('<span></span>');
-		let liContent = $('#li-content');
-	}
 }
 
 //动态添加最新问题数据到页面上;
 function addNew(){
 	$.post('/api/getquestion',{'arr': 'new'},function(res){
-		console.lgo(res.status);
-		console.log(res.data);
+		console.log(res.status);
+		let contentGridNew = $('#content-grid-new');
+		dynamicAddDOM(contentGridNew,res.data);
 	});
 }
 
+function dynamicAddDOM(parentDiv,data){
+	data.forEach(function(ele){
+		//初始化DOM元素.
+		var itemLi = $('<li class="itemLi"></li>');
+		var itemImage = $('<img class="itemImg">');
+		var liContent = $('<div class="li-content"></div>');
+		var itemTitle = $('<a class="itemTitle"></a>');
+		var itemDes = $('<p class="itemDes"></p>');		
+		var questionProducer = $('<span class="questionProducer"></span>');
+		var itemTags = $('<span class="itemTags"></span>');
+		//根据数据,填充DOM元素
+		itemImage.attr('src',ele.image); //数据库里还没有
+		itemTitle.attr('href',ele.questionLink);//数据库里还没有
+		itemTitle.attr('target','_blank');
+		itemTitle.text(ele.title);
+		itemDes.text(ele.description);			
+		questionProducer.text(ele.questionProducer);
+		ele.tags.forEach(function(ele){
+			itemTag = $('<span></span>');
+			itemTag.text(ele);
+			itemTags.append(itemTag);
+		});
+		//将独立的DOM元素链接起来
+		liContent.append(itemTitle);
+		liContent.append(itemDes);
+		liContent.append(questionProducer);
+		liContent.append(itemTags);
+		itemLi.append(itemImage);
+		itemLi.append(liContent);
+		parentDiv.append(itemLi);
+	});
+}
 
 
 

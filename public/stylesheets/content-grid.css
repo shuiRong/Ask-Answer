@@ -1,7 +1,19 @@
 #content-grid{
 	list-style: none;
 }
-
+#content-grid-pop{
+	display: flex;
+	width: 100%;
+	/*background: green;*/
+	background: white;
+	flex-direction: column;
+}
+#content-grid-new{
+	display: none;
+	flex-direction: column;
+	background: white;
+	/*background: blue;*/
+}
 #content-grid .itemLi{
 	margin-top: 1rem;
 	padding:1.5rem;
