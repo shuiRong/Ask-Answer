@@ -2,39 +2,45 @@
 	list-style: none;
 }
 
-#content-grid li{
-	background:white;
-	margin:1.5rem 0;
+#content-grid .itemLi{
+	margin-top: 1rem;
 	padding:1.5rem;
 	list-style:none;
 	display:flex;
+	border-bottom: 2px dashed #ddd;
+	padding-bottom: 2rem;
 }
 
-#content-grid .itemImage{
-	display:inline-block;
-	width:4rem;
-	height:4rem;
-	margin-right:1rem;
+#content-grid .itemImg{
+	background: grey;
+	width: 8rem;
+	height: 8rem;
+	margin-right:2rem;
 }
-
+#content-grid .li-content{
+	width: 90%;
+	position: relative;
+}
 #content-grid .itemTitle{
 	font-size:1.5rem;
 	font-weight:bold;
 	margin-bottom:0.5rem;
 }
-
-#content-grid .answerImage{
-	width:1rem;
-	height:1rem;
-	margin-right:0.3rem;
+#content-grid .questionProducer{
+	display: inline-block;
+	margin-top: 1.5rem;
+	font-size: 15px;
+	color: grey;
 }
-
-#content-grid .itemTag{
+#content-grid .itemTags{
 	position:absolute;
 	right:2rem;
-
+	display: inline-block;
+	margin-top: 1.5rem;
 }
-
-.li-content span{
-	color:grey;
-}
+#content-grid .itemTag{
+	display: inline-block;
+	margin: 0 5px;
+	font-size: 13px;
+	color: grey;
+}	

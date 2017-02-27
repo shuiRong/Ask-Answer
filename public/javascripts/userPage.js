@@ -4,7 +4,6 @@ $(document).ready(function(){
 });
 
 function userPageListen(){
-    console.log('ads');
     //监听回答 button
     $('#umlh-num3').click(function(){
         answerClicked();
@@ -38,7 +37,6 @@ function renderData(arr,username){
     console.log('开始查询 提问数据');
     $.post('/api/getuser' + arr,{username: username},function(res){
         console.log('获取用户提问or回答数据状态: ' + res.status);
-        console.log('data: ' + res.data);
         if(arr==='question'){
             $('#mhlh-num2').text(res.data.length);
             //动态添加 DOM 元素

@@ -47,8 +47,8 @@ router.route('/')
             if(ok){
               //如果登录成功,渲染主页,也可以说登录成功,就把index路由到/signin上.同时把用户名存到cookie里
                 console.log('登录成功');
-                res.cookie('user',escape(un)); //英文数字 不会变化.中文的话需要unescape两次才能变回来.
-                res.render('index',{username:un});
+                res.cookie('user',escape(un));               
+                res.render('index',{username: un});
             }else{
                 console.log('登录失败');
                 res.redirect('/');

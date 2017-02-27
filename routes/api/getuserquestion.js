@@ -26,9 +26,8 @@ router.route('/')
                         }else{
                             count++;
                             data.push(doc2);
-                            if(count === length){
-                                let obj = {'status': '获取数据成功','data': data};
-                                res.send(obj);
+                            if(count === length){                                
+                                let obj = {'status': '获取数据成功','data': data};       res.send(obj);                                 
                             }
                         }
                 }); 
@@ -36,6 +35,28 @@ router.route('/')
             }
         }) 
     })
+
+                                /*
+data: 
+
+[ { _id: 58b2782a42107f579979f515,
+    title: '我是问题123',
+    description: '我是问题123我是问题123我是问题123我是问题123我是问题123着',
+    time: 2017-02-26T14:39:38.000Z,
+    questionProducer: '水溶123',
+    __v: 0,
+    answers: [],
+    tags: [ '我是问题123', '我是问题123', '我是问题123' ] },
+  { _id: 58b2782842107f579979f514,
+    title: '我是问题123',
+    description: '我是问题123我是问题123我是问题123我是问题123我是问题123着',
+    time: 2017-02-26T14:39:36.000Z,
+    questionProducer: '水溶123',
+    __v: 0,
+    answers: [],
+    tags: [ '我是问题123', '我是问题123', '我是问题123' ] }
+]
+                                                                                   */
 
 
 module.exports = router;

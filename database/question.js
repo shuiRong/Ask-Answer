@@ -25,6 +25,10 @@ QuestionSchema = new mongoose.Schema({
   },
   answers: { //问题的回答的id
     type: []
+  },
+  weight: {  //问题的权重
+    type: Number,
+    default: 0
   }
 });
 

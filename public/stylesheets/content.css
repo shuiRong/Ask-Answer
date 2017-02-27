@@ -24,4 +24,22 @@
 	position:absolute;
 	left:60%;
 }
+/*`````````````````````````````*/
 
+#content-header{
+	height: 4rem;
+	margin-top: 2rem;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid grey;
+}
+#content-header span{
+	margin: 0 2rem;
+	height: 3rem;
+	font-size: 20px;
+	padding-top: 4px;
+	font-weight: bold;
+}
+#content-header #popularBtn{
+	margin-right: 4rem;
+}
