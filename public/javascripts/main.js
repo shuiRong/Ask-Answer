@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	listen();
 	popularBtnClicked();
+	getTags();
 });
 
 function listen(){
@@ -58,6 +59,7 @@ function listen(){
 
 	//最热问题, 从数据库获取内容,动态添加.
 	$('#popularBtn').click(popularBtnClicked);
+	
 	//最新提问
 	$('#newBtn').click(newBtnClicked);
 
@@ -134,6 +136,25 @@ function dynamicAddDOM(parentDiv,data){
 		itemLi.append(itemImage);
 		itemLi.append(liContent);
 		parentDiv.append(itemLi);
+	});
+}
+
+//用Ajax获取tags数据.
+function getTags(){
+	$.get('/api/gettags',function(res){
+		console.log(res.status);		
+		addTags(res.data);
+	});
+	
+}
+
+//动态更新标签数据到DOM中
+function addTags(data){
+	let tagSection = $('#tagSection');
+	data.forEach(function(ele){
+		let span = $('<span class="tags"></span>');
+		span.text(ele.tagName);
+		tagSection.append(span);
 	});
 }
 

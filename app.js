@@ -13,6 +13,7 @@ var signup = require('./routes/signup');
 var newquestion = require('./routes/api/newquestion');
 var getuserquestion = require('./routes/api/getuserquestion');
 var getquestion = require('./routes/api/getquestion');
+var gettags = require('./routes/api/gettags');
 var users = require('./routes/users');
 
 var app = express();
@@ -38,6 +39,7 @@ app.use('/signup',signup);
 app.use('/api/newquestion',newquestion);
 app.use('/api/getuserquestion',getuserquestion);
 app.use('/api/getquestion',getquestion);
+app.use('/api/gettags',gettags);
 app.use('/users/*',users); //个人主页
 
 // catch 404 and forward to error handler
