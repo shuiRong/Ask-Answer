@@ -112,13 +112,13 @@ function dynamicAddDOM(parentDiv,data){
 		var itemLi = $('<li class="itemLi"></li>');
 		var itemImage = $('<img class="itemImg">');
 		var liContent = $('<div class="li-content"></div>');
-		var itemTitle = $('<a class="itemTitle"></a>');
+		var itemTitle = $('<a class="itemTitle" href="" target="_blanket"></a>');
 		var itemDes = $('<p class="itemDes"></p>');		
 		var questionProducer = $('<span class="questionProducer"></span>');
 		var itemTags = $('<span class="itemTags"></span>');
 		//根据数据,填充DOM元素
 		itemImage.attr('src',ele.image); //数据库里还没有
-		itemTitle.attr('href',ele.questionLink);//数据库里还没有
+		itemTitle.attr('href','/question/' + ele['_id']);//数据库里还没有
 		itemTitle.attr('target','_blank');
 		itemTitle.text(ele.title);
 		itemDes.text(ele.description);			
