@@ -1,5 +1,4 @@
 //定义 '问题' 的模型
-
 var mongoose = require('mongoose');
 
 QuestionSchema = new mongoose.Schema({

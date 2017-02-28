@@ -122,7 +122,7 @@ function dynamicAddDOM(parentDiv,data){
 		itemDes.text(ele.description);			
 		questionProducer.text(ele.questionProducer);
 		ele.tags.forEach(function(ele){
-			itemTag = $('<span></span>');
+			itemTag = $('<span class="itemTag"></span>');
 			itemTag.text(ele);
 			itemTags.append(itemTag);
 		});
