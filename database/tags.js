@@ -8,6 +8,6 @@ TagsSchema = new mongoose.Schema({
   }
 });
 
-var TagsModel = mongoose.model('tag',QuestionSchema);
+var TagsModel = mongoose.model('tag',TagsSchema);
 
 module.exports = TagsModel;

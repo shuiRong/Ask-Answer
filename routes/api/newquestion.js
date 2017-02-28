@@ -5,7 +5,7 @@ var moment = require('moment');
 require('../../database/connect');
 var Question = require('../../database/question');
 var User = require('../../database/user');
-var Tags = require('../../database/tags');
+var Tag = require('../../database/tags');
 
 //监听  /api/newquest   把用户提交的问题存起来
 router.route('/')
@@ -44,18 +44,39 @@ router.route('/')
                                 console.error('=== error: ' + err);
                             }else{
                                 console.log('<<< 更新用户提问 数据: 成功! ');
+                               // dealTags();
                             }
                         });
                     }
                 });
-  
             }
         });
-        let tags = quest.tags;
-        tags.forEach(function(ele){
-            
-        });
 
+        //循环遍历每个标签,如果数据库里有就什么都不做,如果没有就存进去.
+        let tagsArr = quest.tags;
+        tagsArr.forEach(function(ele){           
+            Tag.findOne({'tagName': ele},function(err,doc){
+                if(err){
+                    console.error('=== tag find error: ' + err);
+                }else{
+                    if(doc==null){
+                        let tag = new Tag({
+                            tagName: ele
+                        });
+                        tag.save(function(err,doc2){
+                            if(err){
+                                console.error('=== tag save error: ' + err);
+                            }else{
+                                console.log('<<< 标签存储成功 !');
+                            }
+                        });
+                    }else{
+                        console.log('<<< 数据库中,目标标签已存在,什么都不做');
+                    }
+                }
+            });
+        });
+        
         res.send('问题提交成功!');
     })
 
