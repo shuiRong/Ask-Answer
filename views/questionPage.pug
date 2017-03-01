@@ -20,6 +20,7 @@ block content
                 div.questionDiv
                     span.answerName 王德福
                     span.answerMotto  http://jiangshanmeta.github.io js围观者
+                    a.answerImg 
                     p.answerText 
                         | 说自己精通交互设计的，行，用css3写一个动画小球从左跑到右，完了抖一下，停住。
                         | 说自己精通javascript的，给一段闭包代码说说这段代码在弄啥呢？
@@ -33,6 +34,7 @@ block content
                 div.questionDiv
                     span.answerName 王德福2
                     span.answerMotto  http://jiangshanmeta.github.io js围观者
+                    a.answerImg 
                     p.answerText 
                         | 说自己精通交互设计的，行，用css3写一个动画小球从左跑到右，完了抖一下，停住。
                         | 说自己精通javascript的，给一段闭包代码说说这段代码在弄啥呢？
@@ -46,6 +48,7 @@ block content
                 div.questionDiv
                     span.answerName 王德福3
                     span.answerMotto  http://jiangshanmeta.github.io js围观者
+                    a.answerImg 
                     p.answerText 
                         | 说自己精通交互设计的，行，用css3写一个动画小球从左跑到右，完了抖一下，停住。
                         | 说自己精通javascript的，给一段闭包代码说说这段代码在弄啥呢？
@@ -56,6 +59,11 @@ block content
                     p
                         span.answerTime 发布于 2017-2-15 15:32
                         span.comment(class='fa fa-comment') &nbsp;评论                                        
-            div#qpm-down
+            div#qpm-down                   
+                span.fa.fa-window-maximize
+                textarea#temp1(placeholder="输入你的回答...")
+                span.submit 发布回答
 
         div#questionPageSider
+
+    script(src='/javascripts/questionPage.js')

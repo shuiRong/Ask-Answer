@@ -12,7 +12,7 @@ router.route('/')
             if(err){
                 console.error('=== find question error: ',err);
             }else{
-                console.log('<<<< ',doc);
+                console.log('<<< 问题主页查询特定问题,成功!');
                 res.render('questionPage',doc);
             }
         });
