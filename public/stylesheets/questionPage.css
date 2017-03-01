@@ -1,0 +1,90 @@
+#questionPageBody{
+    margin: 0 auto;
+    width: 50%;
+    height: 80rem;
+    background: grey;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+#questionPageMain{
+    width: 65%;
+    
+    background: white;
+}
+#qpm-up{
+    background: white;
+}
+#qpm-up .tags{
+    padding: 0.2rem 0.5rem;
+    background: #DDD;
+    border-radius: 1rem;
+    margin:0.5rem;
+}
+#qpm-up .title{
+    font-size: 20px;
+    margin: 1rem 1rem 1rem 0.5rem;
+    font-weight: bold;
+}
+#qpm-up .description{
+    font-size: 15px;
+    margin-left: 0.5rem;
+}
+#qpm-up .qpm-up-down{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #DDD;
+}
+#qpm-up span{
+    margin: 1rem 0.5rem;
+    color: grey;
+}
+#qpm-up-answer-count{
+    height: 3.5rem;
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    justify-content: space-between;
+}
+#qpm-up-answer-count span:first-child{
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+    margin-top: 0.8rem;
+}
+
+#qpm-mid{
+
+}
+#qpm-mid .questionDiv{
+    margin: 1rem 0;
+    border-bottom: 1px solid #DDD;
+}
+#qpm-mid .questionDiv span{
+    color: grey;
+}
+#qpm-mid .questionDiv .answerName{
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+    margin-right: 1rem;
+}
+#qpm-mid .questionDiv >p:last-child{
+    margin-bottom: 1rem;
+}
+#qpm-mid .questionDiv .answerText{
+    font-size: 15px;
+    margin: 1rem 0;
+}
+#qpm-mid .questionDiv .answerTime{
+    margin-right: 1rem;
+}
+
+
+
+
+#questionPageSider{
+    width: 30%;
+    height: 40rem;
+    background: blue;
+}
