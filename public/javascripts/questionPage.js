@@ -1,7 +1,6 @@
 $(document).ready(function(){
     questionPageListen();
     listAnswers();
-    listQuestions();
 });
 
 function questionPageListen(){
@@ -21,13 +20,6 @@ function questionPageListen(){
     });
 };
 
-function listQuestions(){
-    /*$.post('/api/',function(res){
-        
-    });*/
-}
-
-
 function getQuestionID(){
     let href = window.location.href;
     let questionID = href.replace(/.*question\//,'');
@@ -38,7 +30,31 @@ function getQuestionID(){
 function listAnswers(){
     let questionID = getQuestionID();
     $.post('/api/getanswers',{username: getCookie('user'),questionID: questionID},function(res){
-        console.log(res);
+        console.log(res.status);
+       // let data = sortByTime(dealTimeFormat(res.data));
+        console.log(typeof(res.data));
+    });    
+}
+
+//通过回答的权重排列
+
+//按回答时间的倒序排列: 最新的在最上面
+function sortByTime(data){  
+    console.log(typeof(data));
+    /*return data.sort(function(a,b){
+        console.log(a);
+        return a.time - b.time;
+    });*/
+}
+
+//回答按时间正序排列
+function sortByTimeReverse(data){
+    return data.reverse();
+}
+
+//处理 数据里时间的格式.变成 2017-2-29 23:13 
+function dealTimeFormat(data){
+    data.forEach(function(ele){
+        ele.time = ele.time.replace(/[T]/,' ').replace(/.{13}Z/,'');
     });
-    console.log('请求回答数据成功!');
 }
