@@ -3,6 +3,7 @@ var router = express.Router();
 require('../../database/connect');
 var Question = require('../../database/question');
 
+// 首页 获取问题
 router.route('/')
     .post(function(req,res){
         Question.find({},function(err,doc){

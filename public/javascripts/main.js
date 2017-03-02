@@ -2,10 +2,21 @@ $(document).ready(function(){
 	listen();
 	popularBtnClicked();
 	getTags();
+	
 });
 
 function listen(){
+	//字符码,不是汉字
+	let username= getCookie('user');
+	//获取本来就存在的但是没有显示出来的元素
+	let signinHTML = $('#signin').html();
+	let hanzi = unescape(unescape(username));
+	//初始化header的用户名
+	$('#signin').html(hanzi + signinHTML);
 
+	//监听 退出按钮 删除document 的 cookie
+	
+	
 	//监听提问按钮。 点击后显示提问窗口并且模糊化页面其它部分
 	$('#askSpan').click(function(){
 		$('#newDebateDialog').css('display','block');
@@ -26,7 +37,7 @@ function listen(){
 	});
 		
 	//提问框的 提交按钮 的监听事件
-	var username= getCookie('user');
+	
 	$('#release').on('click',function(){
 		let question = {'title':null,'description':null,'tags':null,'time':null,'questionProducer':null};
 		question.questionProducer = username;
@@ -62,7 +73,6 @@ function listen(){
 	
 	//最新提问
 	$('#newBtn').click(newBtnClicked);
-
 }
 
 function popularBtnClicked(){

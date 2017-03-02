@@ -3,7 +3,7 @@ var router = express.Router();
 require('../database/connect');
 var Question = require('../database/question');
 
-//问题主页 把特定问题和问题答案数据取出,在后端渲染好.
+//问题主页 把特定问题数据取出,在后端渲染好.回答的话,前端动态获取吧.
 router.route('/')
     .get(function(req,res){                
         let questionID = req.originalUrl.replace(/\/.*\//,'');
@@ -12,12 +12,14 @@ router.route('/')
             if(err){
                 console.error('=== find question error: ',err);
             }else{
-                console.log('<<< 问题主页查询特定问题,成功!');
-                res.render('questionPage',doc);
+                console.log('<<< 问题主页,获取特定问题数据,成功!');
+                console.log('---------');
+                console.log(doc);
+                res.render('questionPage',{
+                            data: doc}
+                            );
             }
         });
-
-        
     });
 
 

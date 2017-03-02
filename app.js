@@ -15,6 +15,7 @@ var newquestion = require('./routes/api/newquestion');
 var newanswer = require('./routes/api/newanswer');
 var getuserquestion = require('./routes/api/getuserquestion');
 var getquestion = require('./routes/api/getquestion');
+var getanswers = require('./routes/api/getanswers');
 var gettags = require('./routes/api/gettags');
 var users = require('./routes/users');
 
@@ -42,6 +43,7 @@ app.use('/question/*',question);
 app.use('/api/newquestion',newquestion);
 app.use('/api/getuserquestion',getuserquestion);
 app.use('/api/getquestion',getquestion);
+app.use('/api/getanswers',getanswers);
 app.use('/api/newanswer',newanswer);
 app.use('/api/gettags',gettags);
 app.use('/users/*',users); //个人主页

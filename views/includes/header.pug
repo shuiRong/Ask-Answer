@@ -3,9 +3,9 @@ div#header
 	#search
 		input(placeholder='搜索问题')
 		span.fa.fa-search
-	div#signin #{username}
+	div#signin
 		div#signinHover
 			p(class='fa fa-user') 
-				<a id='userPageBtn' href='#'>个人主页</a>
+				a#userPageBtn(href='#') 个人主页
 			p(class='fa fa-power-off') 
-				<a href='127.0.0.1:3000/'>退出</a>
+				a#logout(href='/') 退出
