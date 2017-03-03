@@ -22,10 +22,9 @@ router.route('/')
                 status = '回答存储失败!';
                 res.send({status: status});
             }else{                
-                let answerID = doc['_id'];                
+                let answerID = doc['_id'];
                 //把问题的answers数组取出来.
-                let answers = [answerID];
-                console.log('00000',answers);
+                let answers = [answerID];                
                 Question.findOne({'_id': ansObj.question},'answers',function(err,doc2){
                     if(err){
                         console.error('=== find error',err);
