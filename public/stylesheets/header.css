@@ -16,7 +16,10 @@
 	left:15%;
 	top: 0.5rem;
 }
-
+#header .navSpan a{
+	color: white;
+	text-decoration: none;
+}
 #header #signin{
 	background:white;
 	color:black;

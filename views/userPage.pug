@@ -10,14 +10,14 @@ block content
                     each tag in selfTags
                         span.uhs-tags #{tag}
                     p #{motto}
-            div#userEdit 编辑个人资料
+            div#userEditBtn 编辑个人资料
         div#userMain
             div#uMainLeft
                 div#uml-header
                     span#umlh-num3 回答
-                        span#umlh-num4
+                        span#umlh-num4 0
                     span#umlh-num1 提问
-                        span#mhlh-num2
+                        span#mhlh-num2 0
                 div#uml-main
                     div#umlm-ans
                         //-  div.item
@@ -40,7 +40,31 @@ block content
                         //-             span.item-tag 和谐
 
             div#uMainRight
-
-
+        div#userPageEdit
+            div#upe-img
+            div#upe-main
+                h1 林水溶
+                span(class="fa fa-close fa-3x")
+                p#upem-sex 性别
+                    span.input
+                        input(type='radio' name='sex' value='male' id='maleID')
+                        label(for='maleID') 男
+                        input(type='radio' name='sex' value='famale' id='famaleID')
+                        label(for='famaleID') 女
+                        input(type='radio' name='sex' value='other' id='otherID')
+                        label(for='otherID') 其他
+                p#upem-description 一句话介绍自己
+                    input.input
+                p#upem-address 居住地
+                    input.input
+                p#upem-industry 所在行业
+                    input.input
+                p#upem-carerr-experience 职业经历
+                    input.input
+                p#upem-education 教育经历
+                    input.input
+                p#upem-introdution 个人简介
+                    input.input 
+                span.submit 提交修改
 
     script(src='/javascripts/userPage.js')

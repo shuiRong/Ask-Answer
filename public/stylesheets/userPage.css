@@ -3,6 +3,7 @@
     margin: 2rem auto;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 #userHeader{
@@ -53,7 +54,7 @@
     letter-spacing: 1px;
 }
 
-#userEdit{
+#userEditBtn{
     width: 12rem;
     height: 2.3rem;
     border: 1px solid black;
@@ -65,7 +66,7 @@
     right: 2rem;
     border-radius: 0.3rem;
 }
-#userEdit:hover{
+#userEditBtn:hover{
     color: grey;
     border-color: grey;
 }
@@ -179,4 +180,75 @@
 }
 
 /*`````````````````````````*/
+#userPageEdit{
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    width: 101%;
+    height: 70rem;
+    display: flex;
+    padding: 8rem;
+    box-sizing: border-box;
+}
+#userPageEdit #upe-img{
+    width: 12rem;
+    height: 12rem;
+    background: #ccc;
+    margin-right: 2rem;
+}
 
+#upe-main{
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+#upe-main > *{
+    margin-left: 3rem;
+}
+#upe-main >p{
+    font-size: 15px;
+    font-weight: bold;
+}
+#upe-main .input{
+    float: right;
+    margin-right: 2rem;
+    margin-left: 3rem;
+    width: 30rem;
+    height: 2.5rem;
+    border-radius: 3px;
+    border: 1px solid #bbb;
+    padding-left: 1rem;
+}
+#upem-sex .input{
+    border-radius: 0;
+    border: none;
+}
+#upem-sex .input label{
+    margin-left: 0.5rem;
+    margin-right: 1rem;
+}
+#upe-main .fa-close{
+    position: absolute;
+    top: 3rem;
+    right: 6rem;
+    color: grey;
+}
+#upe-main .fa-close:hover{
+    color: black;
+}
+#upe-main .submit{
+    text-align: center;
+    display: inline-block;
+    width: 10rem;
+    height: 3rem;
+    line-height: 3rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    font-size: 15px;
+}
+#upe-main .submit:hover{
+    color: grey;
+    border-color: grey;
+}

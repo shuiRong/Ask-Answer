@@ -13,6 +13,19 @@ function userPageListen(){
     $('#umlh-num1').click(function(){
         questionClicked();
     });
+    //监听编辑个人资料按钮.
+    $('#userEditBtn').click(function(){
+        $('#userPageEdit').css('display','flex');
+    });
+    // 编辑页的 X 按钮
+    $('#upe-main .fa-close').click(function(){
+        $('#userPageEdit').css('display','none');
+    });
+    //编辑页的提交按钮
+    $('#upe-main .submit').click(function(){
+        let userInput = $('#upe-main input').val();
+        console.log(userInput);
+    });
 }
 
 function questionClicked(){
