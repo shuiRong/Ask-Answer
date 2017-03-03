@@ -12,6 +12,7 @@ function questionPageListen(){
         let answer = $('textarea').val();
         $.post('/api/newanswer',{
                 question: questionID,
+                questionTitle: $('#qpm-up .title').text(),
                 user: user,
                 answer: answer},function(res){
                     console.log(res.status);

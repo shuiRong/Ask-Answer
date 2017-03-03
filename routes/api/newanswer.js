@@ -3,6 +3,7 @@ var router = express.Router();
 require('../../database/connect');
 var Question = require('../../database/question');
 var Answer = require('../../database/answer');
+var User = require('../../database/user');
 var moment = require('moment');
 
 //对新提交的问题处理.
@@ -13,7 +14,7 @@ router.route('/')
             answerProducer: ansObj.user,
             answerContent: ansObj.answer,
             time: new moment().format()
-        });        
+        });                
         //记录回答存储状态
         let satus = '';
         answer.save(function(err,doc){
@@ -23,13 +24,15 @@ router.route('/')
                 res.send({status: status});
             }else{                
                 let answerID = doc['_id'];
+                //把用户回答的标题,id,内容,id,时间,用户名存到用户collection里
+                storeUserAns.call(this,ansObj.questionTitle,ansObj.question,ansObj.answer,answerID,answer.time,unescape(unescape(ansObj.user)));
                 //把问题的answers数组取出来.
                 let answers = [answerID];                
                 Question.findOne({'_id': ansObj.question},'answers',function(err,doc2){
                     if(err){
                         console.error('=== find error',err);
                     }else{                                                
-                        answers = answers.concat(doc2.answers);                        
+                        answers = answers.concat(doc2.answers);
                         Question.update({'_id': ansObj.question},{$set:{'answers': answers}},function(err,doc3){
                             if(err){
                                 console.error('=== find error',err);
@@ -48,5 +51,32 @@ router.route('/')
             }
         });
     });
+
+//把用户回答的标题,id,内容,id,时间,用户名存到用户collection里
+function storeUserAns(title,titleID,content,contentID,time,user){
+    let userAnsArr = [];
+    User.findOne({'username': user},'answers',function(err,doc){    
+        if(err){
+            console.error('=== find error ',err);
+        }else{
+            if(doc.answers){
+                userAnsArr = doc.answers ;
+            }
+            let answers = {
+                title: title,
+                titleID: titleID,
+                content: content,
+                contentID: contentID,
+                time: time
+            };
+            userAnsArr.push(answers);
+            User.update({'username': user},{$set:{'answers': userAnsArr}},function(err,doc2){
+                //成功讲回答相关信息存储到用户collection里
+            });
+        }
+    })
+}
+
+
 
 module.exports = router;

@@ -1,6 +1,7 @@
 $(document).ready(function(){    
     userPageListen();
-    questionClicked();    
+    answerClicked();
+    questionClicked();
 });
 
 function userPageListen(){
@@ -21,7 +22,7 @@ function questionClicked(){
     $('#umlh-num3').css('font-weight','normal');
     if($('#umlm-quest').children().length===0){  //如果此元素子元素为0,就从服务区获取数据,并渲染
         renderData('question',getCookie('user'));
-    }   
+    }
 }
 
 function answerClicked(){
@@ -36,7 +37,7 @@ function answerClicked(){
 function renderData(arr,username){
     console.log('开始查询 提问数据');
     $.post('/api/getuser' + arr,{username: username},function(res){
-        console.log('获取用户提问or回答数据状态: ' + res.status);
+        console.log(res.status);
         if(arr==='question'){
             $('#mhlh-num2').text(res.data.length);
             //动态添加 DOM 元素
@@ -63,7 +64,23 @@ function renderData(arr,username){
                 $('#umlm-quest').append(item);
             });            
         }else if(arr==='answer'){
+            let umlmAns = $('#umlm-ans');
+            //改变回答的个数
+            $('#umlh-num4').text(res.data.length);
+            res.data.forEach(function(ele){
+                let item = $('<div class="item"></div>');
+                let itemTitle = $('<p class="item-title"></p>');
+                let itemAnswer = $('<div class="item-answer"></div>');
+                let itemTime = $('<span class="item-time"></span>');
+                let itemComment = $('<span class="fa fa-comment item-comment">&nbsp;评论</span>');
 
+                itemTitle.text(ele.title);
+                itemAnswer.text(ele.content);
+                itemTime.text(ele.time);
+
+                item.append(itemTitle).append(itemAnswer).append(itemTime).append(itemComment);
+                umlmAns.append(item);
+            });
         }
     });
 }
