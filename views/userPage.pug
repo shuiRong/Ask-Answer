@@ -41,7 +41,7 @@ block content
 
             div#uMainRight
         div#userPageEdit
-            div#upe-img
+            input(type='file')#upe-img
             form(action="/api/useredit",method="post")#upe-main
                 h1 林水溶
                 span(class="fa fa-close fa-3x")
@@ -56,22 +56,22 @@ block content
                         label(for='otherID') 其他
                 div
                     span#upem-description 一句话介绍
-                    input(name='description').input
+                    input(name='description' value='asdasdasdasda').input
                 div
                     span#upem-address 居住地
-                    input(name='address').input
+                    input(name='address' value='asdasdasdasda').input
                 div
                     span#upem-industry 所在行业
-                    input(name='industry').input
+                    input(name='industry' value='asdasdasdasda').input
                 div
                     span#upem-carerr-experience 职业经历
-                    input(name='experience').input
+                    input(name='experience' value='asdasdasdasda').input
                 div
                     span#upem-education 教育经历
-                    input(name='education').input
+                    input(name='education' value='asdasdasdasda').input
                 div
                     span#upem-introdution 个人简介
-                    input(name='introdution').input 
-                input(type="submit" value="提交修改").submit
+                    input(name='introdution' value='asdasdasdasda').input 
+                span.submit 提交编辑
 
     script(src='/javascripts/userPage.js')

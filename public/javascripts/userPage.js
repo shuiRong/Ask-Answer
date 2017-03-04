@@ -21,7 +21,21 @@ function userPageListen(){
     $('#upe-main .fa-close').click(function(){
         $('#userPageEdit').css('display','none');
     });
-    
+    //监听个人编辑页的提交按钮.然后关掉编辑框.传递cookie里的用户名过去
+    $('#upe-main .submit').click(function(){                
+        let formArr = $('#upe-main').serializeArray();
+        let formObj = {};
+        for(let i in formArr){        
+            formObj[formArr[i].name] = formArr[i].value;
+        }
+        formObj['usermane'] = getCookie('user');
+        console.log(formObj);
+        $.post('/api/useredit',formObj,function(res){
+            console.log(res.status);
+        });
+                
+        $('#userPageEdit').css('display','none');
+    });
 }
 
 function questionClicked(){
