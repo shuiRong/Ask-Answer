@@ -187,35 +187,39 @@
     width: 101%;
     height: 70rem;
     display: flex;
-    padding: 8rem;
+    padding: 5rem;
     box-sizing: border-box;
 }
 #userPageEdit #upe-img{
     width: 12rem;
     height: 12rem;
     background: #ccc;
-    margin-right: 2rem;
+    margin-right: 4rem;
 }
 
 #upe-main{
     border-radius: 3px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    
+    justify-content: space-around;    
+    width: calc(100% - 16rem);    
 }
-#upe-main > *{
+/*#upe-main > *{
     margin-left: 3rem;
+}*/
+#upe-main >div{
+    display: flex;
+    justify-content: space-between;
 }
-#upe-main >p{
+#upe-main > div span{
     font-size: 15px;
-    font-weight: bold;
+    display: inline-block;
+    font-weight: bold;    
 }
 #upe-main .input{
     float: right;
-    margin-right: 2rem;
     margin-left: 3rem;
-    width: 30rem;
+    width: 70%;
     height: 2.5rem;
     border-radius: 3px;
     border: 1px solid #bbb;
@@ -241,6 +245,7 @@
 #upe-main .submit{
     text-align: center;
     display: inline-block;
+    background: white;
     width: 10rem;
     height: 3rem;
     line-height: 3rem;

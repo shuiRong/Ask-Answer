@@ -30,7 +30,7 @@
 	margin-right:2rem;
 }
 #content-grid .li-content{
-	width: 90%;
+	width: calc(100% - 10rem);
 	position: relative;
 }
 #content-grid .itemTitle{

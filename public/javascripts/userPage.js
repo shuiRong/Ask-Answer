@@ -21,11 +21,7 @@ function userPageListen(){
     $('#upe-main .fa-close').click(function(){
         $('#userPageEdit').css('display','none');
     });
-    //编辑页的提交按钮
-    $('#upe-main .submit').click(function(){
-        let userInput = $('#upe-main input').val();
-        console.log(userInput);
-    });
+    
 }
 
 function questionClicked(){

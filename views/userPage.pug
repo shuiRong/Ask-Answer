@@ -42,10 +42,11 @@ block content
             div#uMainRight
         div#userPageEdit
             div#upe-img
-            div#upe-main
+            form(action="/api/useredit",method="post")#upe-main
                 h1 林水溶
                 span(class="fa fa-close fa-3x")
-                p#upem-sex 性别
+                div#upem-sex 
+                    span 性别
                     span.input
                         input(type='radio' name='sex' value='male' id='maleID')
                         label(for='maleID') 男
@@ -53,18 +54,24 @@ block content
                         label(for='famaleID') 女
                         input(type='radio' name='sex' value='other' id='otherID')
                         label(for='otherID') 其他
-                p#upem-description 一句话介绍自己
-                    input.input
-                p#upem-address 居住地
-                    input.input
-                p#upem-industry 所在行业
-                    input.input
-                p#upem-carerr-experience 职业经历
-                    input.input
-                p#upem-education 教育经历
-                    input.input
-                p#upem-introdution 个人简介
-                    input.input 
-                span.submit 提交修改
+                div
+                    span#upem-description 一句话介绍
+                    input(name='description').input
+                div
+                    span#upem-address 居住地
+                    input(name='address').input
+                div
+                    span#upem-industry 所在行业
+                    input(name='industry').input
+                div
+                    span#upem-carerr-experience 职业经历
+                    input(name='experience').input
+                div
+                    span#upem-education 教育经历
+                    input(name='education').input
+                div
+                    span#upem-introdution 个人简介
+                    input(name='introdution').input 
+                input(type="submit" value="提交修改").submit
 
     script(src='/javascripts/userPage.js')

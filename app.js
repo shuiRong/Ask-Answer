@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
 var index = require('./routes/index');
 var door = require('./routes/door');
 var signin = require('./routes/signin');
@@ -18,6 +17,7 @@ var getuseranswer = require('./routes/api/getuseranswer');
 var getquestion = require('./routes/api/getquestion');
 var getanswers = require('./routes/api/getanswers');
 var gettags = require('./routes/api/gettags');
+var useredit = require('./routes/api/useredit');
 var users = require('./routes/users');
 
 var app = express();
@@ -48,6 +48,7 @@ app.use('/api/getquestion',getquestion);
 app.use('/api/getanswers',getanswers);
 app.use('/api/newanswer',newanswer);
 app.use('/api/gettags',gettags);
+app.use('/api/useredit',useredit);
 app.use('/users/*',users); //个人主页
 
 // catch 404 and forward to error handler
