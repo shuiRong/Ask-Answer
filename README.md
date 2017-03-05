@@ -8,11 +8,11 @@
 #界面预览
 ---
 
-![image](/puiblic/images/1.png)
-![image](/puiblic/images/2.png)
-![image](/puiblic/images/3.png)
-![image](/puiblic/images/4.png)
-![image](/puiblic/images/5.png)
+![image](/screenshots/1.png)
+![image](/screenshots/12.png)
+![image](/screenshots/3.png)
+![image](/screenshots/4.png)
+![image](/screenshots/5.png)
 
 #技术栈
 ---
