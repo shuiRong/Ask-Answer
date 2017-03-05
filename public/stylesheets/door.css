@@ -55,9 +55,10 @@ form input{
     outline: none;
 }
 form .sign{
-    font-size: 20px;
+    font-size: 21px;
     background: #ddd;
     margin-top: 1rem;
+    letter-spacing: 2px;
 }
 form .sign:hover{
     background: black;

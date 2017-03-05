@@ -78,6 +78,7 @@
 #qpm-mid .questionDiv .answerText{
     font-size: 15px;
     margin: 1rem 0;
+    word-break: break-all;
 }
 #qpm-mid .questionDiv .answerTime{
     margin-right: 1rem;
@@ -116,5 +117,5 @@
 #questionPageSider{
     width: 30%;
     height: 40rem;
-    background: grey;
+    background: #ddd;
 }
