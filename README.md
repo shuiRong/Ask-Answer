@@ -8,7 +8,7 @@
 #界面预览
 ---
 
-![image]('http://raw.github.com/shuiRong/Ask-Answer/master/puiblic/images/1.png')
+![image]('http://github.com/shuiRong/Ask-Answer/master/puiblic/images/1.png')
 ![home]('/puiblic/images/2.png')
 ![question]('/puiblic/images/3.png')
 ![userPage]('/puiblic/images/4.png')
