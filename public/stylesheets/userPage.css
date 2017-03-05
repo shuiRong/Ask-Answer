@@ -186,7 +186,7 @@
     border: 1px solid #ddd;
     width: 101%;
     height: 70rem;
-    display: flex;
+    display: none;
     padding: 5rem;
     box-sizing: border-box;
 }

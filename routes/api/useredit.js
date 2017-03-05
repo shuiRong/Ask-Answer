@@ -4,9 +4,8 @@ var User = require('../../database/user');
 
 router.route('/')
     .post(function(req,res){        
-        console.log(req.body);
         let data = req.body;
-        console.log()
+        let tags = req.body.tags.split(/[,，;； ]/);
         //res.redirect('/users/'+req.body.username);
         User.update({'username': data.username},{$set:{
             'sex': data.sex,
@@ -15,7 +14,8 @@ router.route('/')
             'industry': data.industry,
             'carerrExperience': data.experience,
             'education': data.education,
-            'introdution': data.introdution
+            'introdution': data.introdution,
+            'tags': tags
         }},function(err,doc){
             if(err){
                 console.error('=== update error: ',err);

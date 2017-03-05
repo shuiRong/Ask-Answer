@@ -120,7 +120,7 @@ function dynamicAddDOM(parentDiv,data){
 	data.forEach(function(ele){
 		//初始化DOM元素.
 		var itemLi = $('<li class="itemLi"></li>');
-		var itemImage = $('<img class="itemImg">');
+		var itemImage = $('<img class="itemImg" src="/images/3.jpg">');
 		var liContent = $('<div class="li-content"></div>');
 		var itemTitle = $('<a class="itemTitle" href="" target="_blanket"></a>');
 		var itemDes = $('<p class="itemDes"></p>');		

@@ -37,6 +37,9 @@ UserSchema = new mongoose.Schema({
   },
   'introdution': {  // 自我介绍
     type: String
+  },
+  tags: { //标签
+    type: []
   }
 });
 

@@ -4,12 +4,8 @@ block content
     div#userPage
         div#userHeader
             div#uh-section
-                div#uhs-img(src='#')
+                img#uhs-img(src='/images/3.jpg')
                 div#uhs-right
-                    span #{username}
-                    each tag in selfTags
-                        span.uhs-tags #{tag}
-                    p #{motto}
             div#userEditBtn 编辑个人资料
         div#userMain
             div#uMainLeft
@@ -58,6 +54,9 @@ block content
                 div
                     span#upem-description 一句话介绍
                     input(name='description' value='一句话介绍').input
+                div
+                    span#upem-tags 个人标签
+                    input(name='tags' value='悲观,呆,不萌,宅,逗比').input
                 div
                     span#upem-address 居住地
                     input(name='address' value='居住地').input

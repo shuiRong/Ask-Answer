@@ -2,8 +2,10 @@ $(document).ready(function(){
     userPageListen();
     answerClicked();
     questionClicked();
+    getUserInfo();
 });
 
+//各种监听
 function userPageListen(){
     //预览用户选择的图片
     //listenUserImg();
@@ -80,6 +82,24 @@ function answerClicked(){
     renderData('answer',getCookie('user'));
 }
 
+// 页面加载时获取用户个人信息
+function getUserInfo(){
+    $.post('/api/getuserinfo',{user: getCookie('user')},function(res){
+        let data = res.data;
+        let username = $('<span></span>');
+        username.text(data.username);
+        let uhsRight = $('#uhs-right');
+        uhsRight.append(username);
+        data.tags.forEach(function(ele){
+            let tag = $('<span class="uhs-tags"></span>');
+            tag.text(ele);
+            uhsRight.append(tag);
+        });
+        let motto = $('<p></p>');
+        motto.text(data.description);
+        uhsRight.append(motto);        
+    });
+}
 
 function renderData(arr,username){
     console.log('开始查询 提问数据');
