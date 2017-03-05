@@ -5,6 +5,8 @@ $(document).ready(function(){
 });
 
 function userPageListen(){
+    //预览用户选择的图片
+    //listenUserImg();
     //监听回答 button
     $('#umlh-num3').click(function(){
         answerClicked();
@@ -23,20 +25,42 @@ function userPageListen(){
     });
     //监听个人编辑页的提交按钮.然后关掉编辑框.传递cookie里的用户名过去
     $('#upe-main .submit').click(function(){                
-        let formArr = $('#upe-main').serializeArray();
+        let formArr = $('#userPageEdit').serializeArray();
+        //console.log(formArr);
         let formObj = {};
         for(let i in formArr){        
             formObj[formArr[i].name] = formArr[i].value;
         }
-        formObj['usermane'] = getCookie('user');
-        console.log(formObj);
+        formObj['username'] = unescape(unescape(getCookie('user'))); 
+
         $.post('/api/useredit',formObj,function(res){
             console.log(res.status);
         });
-                
         $('#userPageEdit').css('display','none');
     });
+
+    
 }
+
+//用户上传图片本地预览,
+/*function listenUserImg(){
+    $("#upe-input").on("change", function(e){
+        var file = e.target.files[0]; //获取图片资源
+        // 只选择图片文件
+        if (!file.type.match('image.*')) {
+            return false;
+        }        
+
+        var reader = new FileReader();
+        reader.readAsDataURL(file); // 读取文件
+        // 渲染文件
+        reader.onload = function(arg) { 
+            var img = '<img class="preview" src="' + arg.target.result + '" alt="preview"/>';
+            $("#userPageEdit .preview_box").empty().append(img);   
+        };
+    });
+}*/
+
 
 function questionClicked(){
     $('#umlm-ans').css('display','none');

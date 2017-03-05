@@ -40,9 +40,10 @@ block content
                         //-             span.item-tag 和谐
 
             div#uMainRight
-        div#userPageEdit
-            input(type='file')#upe-img
-            form(action="/api/useredit",method="post")#upe-main
+        form(enctype="multipart/form-data")#userPageEdit
+            div#upe-img                
+            div(action="/api/useredit",method="post")#upe-main
+
                 h1 林水溶
                 span(class="fa fa-close fa-3x")
                 div#upem-sex 
@@ -56,22 +57,22 @@ block content
                         label(for='otherID') 其他
                 div
                     span#upem-description 一句话介绍
-                    input(name='description' value='asdasdasdasda').input
+                    input(name='description' value='一句话介绍').input
                 div
                     span#upem-address 居住地
-                    input(name='address' value='asdasdasdasda').input
+                    input(name='address' value='居住地').input
                 div
                     span#upem-industry 所在行业
-                    input(name='industry' value='asdasdasdasda').input
+                    input(name='industry' value='所在行业').input
                 div
                     span#upem-carerr-experience 职业经历
-                    input(name='experience' value='asdasdasdasda').input
+                    input(name='experience' value='职业经历').input
                 div
                     span#upem-education 教育经历
-                    input(name='education' value='asdasdasdasda').input
+                    input(name='education' value='教育经历').input
                 div
                     span#upem-introdution 个人简介
-                    input(name='introdution' value='asdasdasdasda').input 
+                    input(name='introdution' value='个人简介').input 
                 span.submit 提交编辑
 
     script(src='/javascripts/userPage.js')
