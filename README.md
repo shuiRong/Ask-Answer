@@ -8,11 +8,11 @@
 #界面预览
 ---
 
-![login]('/puiblic/images/1.png')
-![home]('/puiblic/images/2.png')
-![question]('/puiblic/images/3.png')
-![userPage]('/puiblic/images/4.png')
-![userEdit]('/puiblic/images/5.png')
+![image](puiblic/images/1.png)
+![image](puiblic/images/2.png)
+![image](puiblic/images/3.png)
+![image](puiblic/images/4.png)
+![image](puiblic/images/5.png)
 
 #技术栈
 ---
