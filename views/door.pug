@@ -8,23 +8,24 @@ html
     body
         div#container
             h1 问吧
-            p#subH1 告诉我,你想知道什么?
+            p#sub 告诉我, 你想知道什么?
             div#signInAndUp
-                span#signinBtn 登录  
-                span#signupBtn 注册                
-            form#signinForm(action='signin' method='post')
-                span 用户名:
-                input(type='text' name='usernamename' value='水溶123')
-                span 密码:
-                input(type='password' name='passwordname' value=123) 
-                input(type='submit' value='登录')
-            form#signupForm(action='/signup' method='post')
-                span 用户名: 
-                input(type='text' name='usernamename')
-                span 密码:
-                input(type='password' name='passwordname')
-                span 重复密码:
-                input(type='password' name='passwordname2')
-                input(type='submit' value='注册')
+                span#signInBtn 登录  
+                span#signUpBtn 注册
+            form#signInForm(action='signin' method='post')
+                    div
+                        input(type='text' name='usernamename'  placeholder='用户名')
+                        input(type='password' name='passwordname' placeholder='密码')
+                    input(type='submit' value='登录').sign
+            form#signUpForm(action='/signup' method='post')    
+                    div
+                        input(type='text' name='usernamename' placeholder='用户名')    
+                        input(type='password' name='passwordname' placeholder='密码')
+                        input(type='password' name='passwordname2' placeholder='重复密码')
+                    input(type='submit' value='注册').sign
+            footer 此网站为
+                a(href='https://shuirong.github.io/' target='_blanket')  林水溶
+                |   所写, 
+                a(href='https://github.com/shuiRong/Ask-Answer') 网站源码
         script(src='/javascripts/jquery-3.1.1.min.js')
         script(src='/javascripts/publicDoor.js')

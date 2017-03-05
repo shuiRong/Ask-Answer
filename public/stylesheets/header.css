@@ -1,7 +1,7 @@
 #header{
 	background:black;
 	width:100%;
-	height:5rem;
+	height:4rem;
 	position:relative;
 }
 #header .navSpan, #header #signin{
@@ -9,12 +9,12 @@
 	color:white;
 	font-size:2.7rem;
 	position:absolute;
-	top:0.8rem;
+	top:0.5rem;
 }
 
 #header .navSpan{
 	left:15%;
-	top: 0.5rem;
+	top: 0rem;
 }
 #header .navSpan a{
 	color: white;
@@ -24,11 +24,12 @@
 	background:white;
 	color:black;
 	width:10rem;
-	height:2.5rem;
+	height:2.7rem;
+	line-height: 2.7rem;
+	top: 0.6rem;
 	border:1px solid transparent;
 	border-radius:0.3rem;
 	text-align:center;
-	padding-top:0.5rem;
 	font-size:1.5rem;
 	right:12%;
 }
@@ -49,16 +50,14 @@
 	margin-left:1rem;
 }
 
-
-
 #search{
 	position:absolute;
-	top:0.8rem;
+	top:0.2rem;
 	right:calc(15% + 8rem);
 }
 #search input{
 	width:20rem;
-	height:3rem;
+	height:2.7rem;
 	outline:none;
 	padding-left:1rem;
 }
@@ -69,7 +68,7 @@
 	position:relative;
 	color:#ddd;
 	background: white;
-	top:0.1rem;
+	top:0.26rem;
 	padding-top:0.8rem;
 	right:2.5rem;
 }
