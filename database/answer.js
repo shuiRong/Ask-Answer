@@ -14,6 +14,10 @@ AnswerSchema = new mongoose.Schema({
     time: { //回答被创建的时间
         type: Date,
         required: true
+    },
+    weight: { //回答的权重. 暂且等于(赞同-反对)数
+        type: Number,
+        default: 0   //默认是0
     }
 });
 

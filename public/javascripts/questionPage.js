@@ -38,14 +38,18 @@ function listAnswers(){
         dealTimeFormat(res.data);            
         dynamicAddAnswer(res.data);
     });
-    
 }
 
 //动态生成DOM元素
 function dynamicAddAnswer(data){    
     let qpmMid = $('#qpm-mid');
     data.forEach(function(ele){
-        let questionDiv = $('<div class="questionDiv"></div>');
+        let answerDiv = $('<div class="answerDiv"></div>');
+        let judge = $('<div class="judge"></div>');
+        let up = $('<span class="up fa fa-sort-up fa-2x" onclick="upScore(this)"></span>');
+        let score = $('<span class="score">0</span>');
+        let down = $('<span class="down fa fa-sort-down fa-2x" onclick="downScore(this)"></span>');
+        judge.append(up).append(score).append(down);
         let answerName = $('<span class="answerName"></span>');
         let answerMotto = $('<span class="answerMotto"></span>');
         let answerImg = $('<img class="answerImg" src="/images/3.jpg">');
@@ -61,7 +65,7 @@ function dynamicAddAnswer(data){
         let answerTime = $('<span class="answerTime"></span>');
         let comment = $('<span class="fa fa-comment">&nbsp;评论</span>');
 
-        questionDiv.attr('id',ele._id);  //存储答案的_id,更新答案时用
+        answerDiv.attr('id',ele._id);  //存储答案的_id,更新答案时用
         answerTime.text('发布于 ' + ele.time);
         answerText.text(ele.answerContent);
         answerMotto.text('需要从数据库里获取');
@@ -71,11 +75,9 @@ function dynamicAddAnswer(data){
         if(answerModify){  
             answerText.append(answerModify);
         }
-        questionDiv.append(answerName).append(answerMotto).append(answerImg).append(answerText).append(p);
-        qpmMid.append(questionDiv);
-    });
-   
-   
+        answerDiv.append(judge).append(answerName).append(answerMotto).append(answerImg).append(answerText).append(p);
+        qpmMid.append(answerDiv);
+    }); 
 }
 
 //监听回答后的修改按钮
@@ -94,6 +96,22 @@ var ansModify = function(which){
     
 };
 
+//监听回答的点赞.
+var upScore = function(which){
+    let answerID = $(which.parentElement.parentElement).attr('id');
+    //和反对共用一个api, 点赞的话,arr就是数字1,反对就是数字-1.
+    $.post('/api/changescore',{'answerID': answerID,'arr': 1},function(res){
+        console.log(res.status);
+    });
+};
+//监听回答的反对.
+var downScore = function(which){    
+    let answerID = $(which.parentElement.parentElement).attr('id');
+    $.post('/api/changescore',{'answerID': answerID,'arr': -1},function(res){
+        console.log(res.status);
+    });
+}; 
+
 
 // 回答修改框的 取消按钮
 function answerTextCancel(which){
@@ -109,7 +127,7 @@ function answerTextSubmit(which){
     let answerText = $(which.parentElement.parentElement);
     let answer = answerText.children('textarea').val();
     //更新的回答提交到后端接口.
-    $.post('/api/updateanswer',{username: getCookie('user'),answer: answer,answerID: $('#qpm-mid .questionDiv').attr('id')},function(res){
+    $.post('/api/updateanswer',{username: getCookie('user'),answer: answer,answerID: $('#qpm-mid .answerDiv').attr('id')},function(res){
     });
     //同时,把更新的内容,写到页面里. 如果刷新的话,这个回答就是从服务端获得的了. 
     //本来还想着要不要提交更新后刷新页面,现在还是如今的方法666.

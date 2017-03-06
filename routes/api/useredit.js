@@ -21,9 +21,11 @@ router.route('/')
                 console.error('=== update error: ',err);
             }else{
                 console.log('<<< 更新用户编辑信息,成功!');
+                let url = data.originUrl.replace(/.{21}/,'');
+                res.send({status: '更新用户编辑信息,成功'});
             }
         });
-        res.send({status: '问题编辑页数据提交,成功!'});
+       
     });
 
 module.exports = router;

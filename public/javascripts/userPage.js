@@ -30,14 +30,15 @@ function userPageListen(){
         $('#userMain').css('display','flex');
     });
     //监听个人编辑页的提交按钮.然后关掉编辑框.传递cookie里的用户名过去
-    $('#upe-main .submit').click(function(){                
+    $('#upe-main .submit').click(function(){  
         let formArr = $('#userPageEdit').serializeArray();
         //console.log(formArr);
         let formObj = {};
         for(let i in formArr){        
             formObj[formArr[i].name] = formArr[i].value;
         }
-        formObj['username'] = unescape(unescape(getCookie('user'))); 
+        formObj['username'] = unescape(unescape(getCookie('user')));
+        formObj['originUrl'] = window.location.href;
 
         $.post('/api/useredit',formObj,function(res){
             console.log(res.status);
