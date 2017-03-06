@@ -11,13 +11,10 @@ router.route('/')
         Question.findOne({'_id': questionID},function(err,doc){
             if(err){
                 console.error('=== find question error: ',err);
-            }else{
-                console.log('<<< 问题主页,获取特定问题数据,成功!');
-                console.log('---------');
-                console.log(doc);
+            }else{                     
                 res.render('questionPage',{
-                            data: doc}
-                            );
+                            data: doc
+                        });
             }
         });
     });

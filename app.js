@@ -16,6 +16,7 @@ var getuserquestion = require('./routes/api/getuserquestion');
 var getuseranswer = require('./routes/api/getuseranswer');
 var getquestion = require('./routes/api/getquestion');
 var getanswers = require('./routes/api/getanswers');
+var updateanswer = require('./routes/api/updateanswer');
 var getuserinfo = require('./routes/api/getuserinfo');
 var gettags = require('./routes/api/gettags');
 var useredit = require('./routes/api/useredit');
@@ -49,6 +50,7 @@ app.use('/api/getquestion',getquestion);
 app.use('/api/getanswers',getanswers);
 app.use('/api/getuserinfo',getuserinfo);
 app.use('/api/newanswer',newanswer);
+app.use('/api/updateanswer',updateanswer);
 app.use('/api/gettags',gettags);
 app.use('/api/useredit',useredit);
 app.use('/users/*',users); //个人主页
