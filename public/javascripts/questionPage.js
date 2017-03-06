@@ -1,6 +1,7 @@
 $(document).ready(function(){
     questionPageListen();
     listAnswers();
+    
 });
 
 function questionPageListen(){
@@ -19,6 +20,7 @@ function questionPageListen(){
                 });
         $('textarea').val('');
     });
+      //监听回答修改框的发布和取消按钮
 };
 
 function getQuestionID(){
@@ -36,18 +38,24 @@ function listAnswers(){
         dealTimeFormat(res.data);            
         dynamicAddAnswer(res.data);    
     });
+    
 }
 
 //动态生成DOM元素
-function dynamicAddAnswer(data){
-    console.log(data);
+function dynamicAddAnswer(data){    
     let qpmMid = $('#qpm-mid');
     data.forEach(function(ele){
         let questionDiv = $('<div class="questionDiv"></div>');
         let answerName = $('<span class="answerName"></span>');
         let answerMotto = $('<span class="answerMotto"></span>');
         let answerImg = $('<a class="answerImg"></a>');
-        let answerText = $('<p class="answerText"></p>');
+        let answerText = $('<div class="answerText"></div>');
+        //如果这个回答是cookie里的这个人的,那么这个答案就填家修改按钮.
+        let answerModify = null;
+        if(getCookie('user')==ele.answerProducer){
+            answerModify = $('<span class="fa fa-pencil" onclick="ansModify(this)"> 修改</span>');
+        }
+
         let p = $('<p></p>');
         let answerTime = $('<span class="answerTime"></span>');
         let comment = $('<span class="fa fa-comment">&nbsp;评论</span>');
@@ -58,12 +66,49 @@ function dynamicAddAnswer(data){
         answerName.text(unescape(unescape(ele.answerProducer)));
 
         p.append(answerTime).append(comment);
+        if(answerModify){
+            answerText.append(answerModify);
+        }
         questionDiv.append(answerName).append(answerMotto).append(answerImg).append(answerText).append(p);
         qpmMid.append(questionDiv);
     });
+   
+   
 }
 
+//监听回答后的修改按钮
+var ansModify = function(which){
+        let parentEle = which.parentElement;
+        let answer = parentEle.firstChild;       
+        let textarea = $('<textarea class="textarea"></textarea>');
+        textarea.html(answer);
+        let div = $('<div></div>');
+        let cancel = $('<span class="cancel" onclick="answerTextCancel(this)">取消</span>');
+        let submit = $('<span class="submit" onclick="answerTextSubmit()">发布</span>');
+        div.append(cancel).append(submit);
+        $(parentEle).append(textarea).append(div);
+        //把修改按钮消失掉
+        $(which).css('display','none');
+    
+};
 
+
+// 回答修改框的 取消按钮
+function answerTextCancel(which){
+    //修改按钮回来,none掉发布修改按钮的父div,把回答文本添加给 .answerText,还得是第一个位置
+    /*$('#qpm-mid .fa-pencil').css('display','block');
+    $(which.parentElement).css('display','none');*/
+    //这个回答块的最高父元素
+    let answerText = $(which.parentElement.parentElement);
+    let answer = answerText.children('textarea').text();
+    answerText.empty().prepend(answer);
+    let span = $('<span class="fa fa-pencil" onclick="ansModify(this)">修改</span>');
+    answerText.append(span);
+    //$('#qpm-mid textarea').text('').css('display','none');
+}
+function answerTextSubmit(){
+    console.log('444');
+}
 
 //按回答时间的倒序排列: 最新的在最上面
 function sortByTime(data){      

@@ -20,10 +20,14 @@ function userPageListen(){
     //监听编辑个人资料按钮.
     $('#userEditBtn').click(function(){
         $('#userPageEdit').css('display','flex');
+        $('#userHeader').css('display','none');
+        $('#userMain').css('display','none');
     });
     // 编辑页的 X 按钮
     $('#upe-main .fa-close').click(function(){
         $('#userPageEdit').css('display','none');
+        $('#userHeader').css('display','block');
+        $('#userMain').css('display','flex');
     });
     //监听个人编辑页的提交按钮.然后关掉编辑框.传递cookie里的用户名过去
     $('#upe-main .submit').click(function(){                
@@ -39,6 +43,8 @@ function userPageListen(){
             console.log(res.status);
         });
         $('#userPageEdit').css('display','none');
+        $('#userHeader').css('display','block');
+        $('#userMain').css('display','flex');
     });
 
     
