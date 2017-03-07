@@ -26,7 +26,7 @@ router.route('/')
                             console.error('=== find error: ',err);
                             status = '服务端查询问题答案数据,出错!';
                         }else{                            
-                            data.push(doc2);                            
+                            data.push(doc2);
                             count++;
                             if(count == length){
                                 status = '获取问题回答数据,成功!';

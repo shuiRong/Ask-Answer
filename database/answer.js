@@ -18,6 +18,9 @@ AnswerSchema = new mongoose.Schema({
     weight: { //回答的权重. 暂且等于(赞同-反对)数
         type: Number,
         default: 0   //默认是0
+    },
+    voter: { //对这个答案点赞或者反对的人. [['林水溶',1]}]  //1 代表赞,0代表反对
+        type: Array
     }
 });
 
