@@ -35,7 +35,9 @@ function listAnswers(){
     $.post('/api/getanswers',{username: getCookie('user'),questionID: questionID},function(res){
         //修改页面回答数量
         $('#qpm-up-answer-count span:first-child').text(res.data.length + '个回答');
-        dealTimeFormat(res.data);            
+        dealTimeFormat(res.data);
+        let data = sortByScore(res.data);
+        console.log(data);
         dynamicAddAnswer(res.data);
     });
 }
@@ -113,8 +115,12 @@ var ansModify = function(which){
     
 };
 
-//给.judge元素设置score属性记录当前回答的赞数.用户点击时的计算结果保存给它,而属性serverScore永远保存的是数据库里当前回答的赞数.所以需要给这两个属性初始化.
 //监听回答的点赞.
+
+//给.judge元素设置score属性记录当前回答的赞数.用户点击时的计算结果保存给它,而属性serverScore永远保存的是数据库里当前回答的赞数.所以需要给这两个属性初始化.
+//点赞/反对的思路是: 定义几个元素属性,之所以不用变量是因为这个东西需要和回答绑定起来,变量的话,做不到吧.好吧其实可以做到,但是麻烦.所以直接用div的attr了当成变量存储信息了.
+//这几个属性记录用户点的是up还是down.up/down点了奇数此还是偶数次,还有记录从服务器获得的分数.
+//在前端计算回答的分数.
 var upVote = function(which){
     let serverScore = $(which.parentElement).attr('finalScore');  //从服务器端获取的某答案的score;
     //父元素的 socre属性记录答案赞数.每次页面加载时从服务端获取.
@@ -226,16 +232,18 @@ function answerTextSubmit(which){
 }
 
 //按回答时间的倒序排列: 最新的在最上面
-function sortByTime(data){      
-    /*data.sort(function(a,b){    
+/*function sortByTime(data){      
+    data.sort(function(a,b){    
         return a.time - b.time;
-    });*/
-}
-
-//回答按时间正序排列
-/*function sortByTimeReverse(data){
-    return data.reverse();
+    });
 }*/
+
+//根据回答的赞数正序排序.
+function sortByScore(data){
+    return data.sort(function(a,b){
+        return b.weight - a.weight;
+    });
+}
 
 //处理 数据里时间的格式.变成 2017-2-29 23:13 
 function dealTimeFormat(data){

@@ -21,12 +21,10 @@ router.route('/')
             }else{                
                 voter = doc.voter;
                 let index = findUser(dataVoter[0],voter) //检查是否此用户名在数据库里
-                console.log(index);
-                if(index){  //在的话,删除掉再说
+                if(index){  //在的话,删除掉
                     voter.splice(index,1);
-                }
-                console.log(voter);
-                voter.push(dataVoter);            
+                }                
+                voter.push(dataVoter);//然后把新的添加进去
 
                 Answer.update({'_id': data.answerID},{$set:{'voter': voter,'weight': data.arr}},function(err,doc2){
                     err ? console.error('=== update error',err) : console.log('回答的voter和权重更新成功');
