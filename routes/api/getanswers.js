@@ -3,6 +3,20 @@ var router = express.Router();
 require('../../database/connect');
 var Question = require('../../database/question');
 var Answer = require('../../database/answer');
+var marked = require('marked');
+
+// 设置 marked
+marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: true,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false
+});
+
 
 //问题主页, 动态获取回答.排序部分还是在前端做吧.
 router.route('/')
@@ -25,20 +39,19 @@ router.route('/')
                         if(err){
                             console.error('=== find error: ',err);
                             status = '服务端查询问题答案数据,出错!';
-                        }else{                            
+                        }else{
                             data.push(doc2);
                             count++;
                             if(count == length){
-                                status = '获取问题回答数据,成功!';
+                                status = '获取问题回答数据,成功!';                              
+                                console.log(data);
                                 res.send({status: status,data: data});
                             }
-                           
                         }
                     });
                 });
             }
-        });            
-
+        });
     });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 $(document).ready(function(){
     questionPageListen();
     listAnswers();
-    
+    //运行highlight.js    
 });
 
 function questionPageListen(){
@@ -19,8 +19,7 @@ function questionPageListen(){
                     console.log(res.status);
                 });
         $('textarea').val('');
-    });
-    
+    });    
 };
 
 function getQuestionID(){
@@ -36,17 +35,19 @@ function listAnswers(){
         //修改页面回答数量
         $('#qpm-up-answer-count span:first-child').text(res.data.length + '个回答');
         dealTimeFormat(res.data);
-        let data = sortByScore(res.data);
-        console.log(data);
+        let data = sortByScore(res.data);        
         dynamicAddAnswer(res.data);
     });
 }
 
 //动态生成DOM元素
-function dynamicAddAnswer(data){    
+function dynamicAddAnswer(data){
     let qpmMid = $('#qpm-mid');
     data.forEach(function(ele){
         let answerDiv = $('<div class="answerDiv"></div>');
+        let answerMD = $('<div class="answerMD"></div>');
+        answerMD.text(ele.answerContent);
+        
         let judge = $('<div class="judge" score="0" finalScore="0"></div>');
         let up = $('<span class="up fa fa-sort-up fa-2x" clicked="0" onclick="upVote(this)"></span>');
         let score = $('<span class="score">0</span>');
@@ -59,10 +60,10 @@ function dynamicAddAnswer(data){
         //检测cookie里的用户在不在此答案的voter里,如果在的话,对应的up/down的clicked变成1,即点击奇数次,然后样式变变.
         ele.voter.forEach(function(ele){
             if(ele[0] == getCookie('user')){  //此用户点过赞同或反对
-                if(ele[1] == 1){ // 点的是赞同
+                if(ele[1] == '1'　&& ele[2]== '1'){ // 点的是赞同并且点了奇数次
                     up.attr('clicked','1');
                     up.css({'color':'black','font-size':'3em'});
-                }else{  //反对
+                }else if(ele[2] == '1'){  //反对并奇数次
                     down.attr('clicked','1');
                     down.css({'color':'black','font-size':'3em'});
                 }
@@ -73,10 +74,10 @@ function dynamicAddAnswer(data){
         let answerMotto = $('<span class="answerMotto"></span>');
         let answerImg = $('<img class="answerImg" src="/images/3.jpg">');
         let answerText = $('<div class="answerText"></div>');
-        //如果这个回答是cookie里的这个人的,那么这个答案就填家修改按钮.
+        //如果这个回答是cookie里的这个人的,那么这个答案就填加修改按钮.
         let answerModify = null;
         if(getCookie('user')==ele.answerProducer){   //如果有此用户的回答
-            answerModify = $('<span class="fa fa-pencil" onclick="ansModify(this)"> 修改</span>');
+            answerModify = $('<span class="fa fa-pencil" onclick="ansModify(this)">&nbsp;修改</span>');
             //把修改按钮消失掉
             $('#qpm-down').css('display','none');        
         }
@@ -86,7 +87,7 @@ function dynamicAddAnswer(data){
 
         answerDiv.attr('id',ele._id);  //存储答案的_id,更新答案时用
         answerTime.text('发布于 ' + ele.time);
-        answerText.text(ele.answerContent);
+        answerText.html(marked(ele.answerContent));
         answerMotto.text('需要从数据库里获取');
         answerName.text(unescape(unescape(ele.answerProducer)));
 
@@ -94,26 +95,81 @@ function dynamicAddAnswer(data){
         if(answerModify){  
             answerText.append(answerModify);
         }
-        answerDiv.append(judge).append(answerName).append(answerMotto).append(answerImg).append(answerText).append(p);
+        answerDiv.append(judge).append(answerName).append(answerMotto).append(answerImg).append(answerMD).append(answerText).append(p);
         qpmMid.append(answerDiv);
     }); 
+    $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
 }
 
 //监听回答后的修改按钮
 var ansModify = function(which){
-        let parentEle = which.parentElement;
-        let answer = parentEle.firstChild;       
-        let textarea = $('<textarea class="textarea"></textarea>');
-        textarea.html(answer);
-        let div = $('<div></div>');
-        let cancel = $('<span class="cancel" onclick="answerTextCancel(this)">取消</span>');
-        let submit = $('<span class="submit" onclick="answerTextSubmit(this)">发布</span>');
-        div.append(cancel).append(submit);
-        $(parentEle).append(textarea).append(div);
-        //把修改按钮消失掉
-        $(which).css('display','none');
+        let superParentEle = which.parentElement.parentElement;
+        let answerMD = $(superParentEle).children('.answerMD').text();
+        //如果用户第一次点击修改按钮的话，生成textarea，以后只用改变display        
+        if($(superParentEle).children('.textarea').length==0){            
+            let textarea = $('<textarea class="textarea"></textarea>');
+            textarea.val(answerMD);
+            $(superParentEle).append(textarea);
+        }else{
+            $(superParentEle).children('.textarea').css('display','block');
+        }
+        
+        //取消发布div.如果没有此div也就是用户第一次点修改
+        if($(superParentEle).children('.cancelSubmit').length==0){
+            let div = $('<div class="cancelSubmit"></div>');
+            let cancel = $('<span class="cancel" onclick="answerTextCancel(this)">取消</span>');
+            let submit = $('<span class="submit" onclick="answerTextSubmit(this)">发布</span>');
+            div.append(cancel).append(submit);
+            $(superParentEle).append(div);
+        }else{
+            $(superParentEle).children('.cancelSubmit').css('display','block');
+        }
+        //回答div消失掉
+        $(which.parentElement).css('display','none');
+        //回答下面的时间评论p消失掉
+        $(superParentEle).children('p').css('display','none');
     
 };
+
+// 回答修改框的 取消按钮
+function answerTextCancel(which){
+    //这个回答块的最高父元素
+    let superParent = $(which.parentElement.parentElement);
+    //显示回答div和最下面的评论时间p
+    superParent.children('p').css('display','block');
+    superParent.children('.answerText').css('display','block');
+    superParent.children('textarea').css('display','none'); 
+    superParent.children('.cancelSubmit').css('display','none');
+   /* let span = $('<span class="fa fa-pencil" onclick="ansModify(this)">&nbsp;修改</span>');
+    superParent.append(span);*/
+}
+// 回答的修改框 的发布按钮.更新用户回答.
+function answerTextSubmit(which){
+    let superParent = $(which.parentElement.parentElement);
+    let answer = superParent.children('.textarea').val();
+    console.log(answer);
+    //先把新的回答更新到answerMD
+    superParent.children('.answerMD').text(answer);
+    superParent.children('.answerText').html(marked(answer));
+    //再更新的回答提交到后端接口.
+    $.post('/api/updateanswer',{username: getCookie('user'),answer: answer,answerID: superParent.attr('id')},function(res){
+    });
+
+    //重新生成回答修改按钮
+    let answerModify = $('<span class="fa fa-pencil" onclick="ansModify(this)">&nbsp;修改</span>');
+    let answerText = superParent.children('.answerText');
+    answerText.append(answerModify);
+
+    superParent.children('p').css('display','block');
+    answerText.css('display','block');
+    superParent.children('textarea').css('display','none'); 
+    superParent.children('.cancelSubmit').css('display','none');
+
+
+}
+
 
 //监听回答的点赞.
 
@@ -123,35 +179,33 @@ var ansModify = function(which){
 //在前端计算回答的分数.
 var upVote = function(which){
     let serverScore = $(which.parentElement).attr('finalScore');  //从服务器端获取的某答案的score;
-    //父元素的 socre属性记录答案赞数.每次页面加载时从服务端获取.
-    let score;
-    if($(which.parentElement.children[2]).attr('clicked')==1){
-        $(which.parentElement).attr('score',serverScore);
-        score = serverScore;
-    }else{
-        score = $(which.parentElement).attr('score');
-    }
+    let parent = $(which.parentElement);
+    let score = parent.attr('score');
     let clicked = $(which).attr('clicked');  //是否被点过,0表示没点过,1表示奇数次,2偶数次    
-    switch (clicked){
-        case '0':
-            score = Number(score)+1;
-            $(which.parentElement).attr('score',score);
-            $(which).attr('clicked','1').css({'color': 'black','font-size': '3em'});
-            $(which.parentElement.children[2]).attr('clicked','0').css({'color': 'grey','font-size': '2em'});
-            break;
-        case '1':
-            score = Number(score) - 1;
-            $(which.parentElement).attr('score',score);
-            $(which).attr('clicked','2').css({'color': 'grey','font-size': '2em'});
-            break;
-        case '2':
-            score = Number(score) + 1;
-            $(which.parentElement).attr('score',score);
-            $(which).attr('clicked','1').css({'color': 'black','font-size': '2em'});
-            break;
-    }        
-    //改变中间的分数
-    score = $(which.parentElement).attr('score');
+    let downVote = $(parent.children()[2]);
+    //如果是从点过downVote 奇数次，然后点upVote的．
+    if(downVote.attr('clicked')=='1'){
+        downVote.attr('clicked','0').css({'color':'grey','font-size':'2em'});
+        $(which).attr('clicked','1').css({'color':'black','font-size':'3em'});
+        score = Number(score) + 2;
+    }else{
+        switch(clicked){
+            case '0':
+                score = Number(score)+1;
+                $(which).attr('clicked','1').css({'color':'black','font-size':'3em'});
+                break;
+            case '1':
+                score = Number(score) - 1;
+                $(which).attr('clicked','2').css({'color':'grey','font-size':'2em'});
+                break;
+            case '2':
+                score = Number(score) + 1;
+                $(which).attr('clicked','1').css({'color':'black','font-size':'3em'});
+                break;
+        }
+    }
+    $(which.parentElement).attr('score',score);
+    //改变中间的分数    
     $(which.parentElement.children[1]).text(score);
     let answerID = $(which.parentElement.parentElement).attr('id');
     let user = getCookie('user');
@@ -167,36 +221,32 @@ var upVote = function(which){
 
 //监听回答的反对.
 var downVote = function(which){
-    let serverScore = $(which.parentElement).attr('finalScore');  //从服务器端获取的某答案的score;
-     //父元素的 socre属性记录答案的赞数.
-    let score;
-    if($(which.parentElement.children[0]).attr('clicked')==1){
-        $(which.parentElement).attr('score',serverScore);
-        score = serverScore;
-    }else{
-        score = $(which.parentElement).attr('score');
-    }
+    let serverScore = $(which.parentElement).attr('finalScore');
+    let parent = $(which.parentElement);
+    let score = parent.attr('score');
     let clicked = $(which).attr('clicked');  //是否被点过,0表示没点过,1表示奇数次,2偶数次
-    
-    switch (clicked){
-        case '0':
-            score = Number(score) - 1;
-            $(which.parentElement).attr('score',score);
-            $(which).attr('clicked','1').css({'color': 'black','font-size': '3em'});
-            $(which.parentElement.children[0]).attr('clicked','0').css({'color': 'grey','font-size': '2em'});
-            break;
-        case '1':
-            score = Number(score) + 1;
-            $(which.parentElement).attr('score',score);
-            $(which).attr('clicked','2').css({'color': 'grey','font-size': '2em'});  
-            break;
-        case '2':
-            score = Number(score) - 1;
-            $(which.parentElement).attr('score',score);
-            $(which).attr('clicked','1').css({'color': 'black','font-size': '2em'});  
-            break;
-    }    
-    score = $(which.parentElement).attr('score');
+    let upVote = $(parent.children()[0]);
+    if(upVote.attr('clicked')=='1'){
+        upVote.attr('clicked','0').css({'color':'grey','font-size':'2em'});
+        $(which).attr('clicked','1').css({'color':'black','font-size':'3em'});        
+        score = Number(score) - 2;        
+    }else{
+        switch(clicked){
+            case '0':
+                score = Number(score) - 1;
+                $(which).attr('clicked','1').css({'color':'black','font-size':'3em'});
+                break;
+            case '1':
+                score = Number(score) + 1;
+                $(which).attr('clicked','2').css({'color':'grey','font-size':'2em'});
+                break;
+            case '2':
+                score = Number(score) - 1;
+                $(which).attr('clicked','1').css({'color':'black','font-size':'3em'});
+                break;
+        }
+    }
+    $(which.parentElement).attr('score',score);
     //改变中间的分数
     $(which.parentElement.children[1]).text(score);
     let user = getCookie('user');
@@ -208,28 +258,7 @@ var downVote = function(which){
 }; 
 
 
-// 回答修改框的 取消按钮
-function answerTextCancel(which){
-    //这个回答块的最高父元素
-    let answerText = $(which.parentElement.parentElement);
-    let answer = answerText.children('textarea').text();
-    answerText.empty().prepend(answer);
-    let span = $('<span class="fa fa-pencil" onclick="ansModify(this)">修改</span>');
-    answerText.append(span);
-}
-// 回答的修改框 的发布按钮.更新用户回答.
-function answerTextSubmit(which){
-    let answerText = $(which.parentElement.parentElement);
-    let answer = answerText.children('textarea').val();
-    //更新的回答提交到后端接口.
-    $.post('/api/updateanswer',{username: getCookie('user'),answer: answer,answerID: $('#qpm-mid .answerDiv').attr('id')},function(res){
-    });
-    //同时,把更新的内容,写到页面里. 如果刷新的话,这个回答就是从服务端获得的了. 
-    //本来还想着要不要提交更新后刷新页面,现在还是如今的方法666.
-    answerText.empty().prepend(answer);
-    let span = $('<span class="fa fa-pencil" onclick="ansModify(this)">修改</span>');
-    answerText.append(span);
-}
+
 
 //按回答时间的倒序排列: 最新的在最上面
 /*function sortByTime(data){      

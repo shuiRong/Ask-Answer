@@ -4,7 +4,7 @@ var Answer = require('../../database/answer');
 /*
     监听用户点赞或反对,更新到数据库里
 
-    'voter':[user,1,1]   记录点赞或反对的用户.第二个参数表示用户点的up/down,第三个表示用户点击up/down的次数.
+    'voter':[user,1,1]   记录点赞或反对的用户.第二个参数表示用户点的up(1)/down(0),第三个表示用户点击up/down的次数(1,2).
     在接口程序里判发现如果之前存在此用户信息的话,删掉,重新添加.之前没有的话,添加.
 */
 
@@ -20,12 +20,8 @@ router.route('/')
                 console.error('=== findOne error: ',err);
             }else{                
                 voter = doc.voter;
-                let index = findUser(dataVoter[0],voter) //检查是否此用户名在数据库里
-                if(index){  //在的话,删除掉
-                    voter.splice(index,1);
-                }                
+                voter = deleteUser(dataVoter[0],voter) //这个voter里已经没有此用户的信息了
                 voter.push(dataVoter);//然后把新的添加进去
-
                 Answer.update({'_id': data.answerID},{$set:{'voter': voter,'weight': data.arr}},function(err,doc2){
                     err ? console.error('=== update error',err) : console.log('回答的voter和权重更新成功');
                 });
@@ -33,15 +29,15 @@ router.route('/')
         });
     });
 
-//用户名在voter里的话,就return 下标,否则return false
-function findUser(username,voter){
-    let status = undefined;
+//返回一个新二维数组，有user不是username的一味数组组成
+function deleteUser(username,voter){
+    let newArr = [];
     voter.forEach(function(ele,index){
-        if(ele[0] == username){
-            status = index;
+        if(ele[0] !== username){
+            newArr.push(ele);
         }
     });
-    return status;
+    return newArr;
 }
 
 

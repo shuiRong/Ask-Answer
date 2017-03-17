@@ -7,7 +7,7 @@ AnswerSchema = new mongoose.Schema({
         type: String, // 某人
         required: true
     },
-    answerContent: { //回答的内容
+    answerContent: { //回答的内容md版,可能之后会被程序渲染成带html标签的回答
         type: String,
         required: true
     },

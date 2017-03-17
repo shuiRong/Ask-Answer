@@ -69,6 +69,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    color: grey;
 }
 #qpm-mid .judge .up:hover{
     color: black;
@@ -83,9 +84,6 @@
 #qpm-mid .judge .down:hover{
     color: black;
     font-size: 30px;
-}
-#qpm-mid .answerDiv span{
-    color: grey;
 }
 #qpm-mid .answerDiv .answerName{
     font-size: 15px;
@@ -105,17 +103,25 @@
 }
 #qpm-mid .answerDiv .answerText{
     font-size: 15px;
-    margin: 1rem 0;
+    margin: 2rem 0 3rem 0;
     word-break: break-all;
+    position: relative;
 }
 #qpm-mid .textarea{
     width: 98%;
-    min-height: 15rem;
+    min-height: 30rem;
+}
+#qpm-mid .answerMD{
+    display: none;
 }
 #qpm-mid .answerText div {
     text-align: right;
 }
-
+#qpm-mid .answerDiv .fa-pencil{
+    position: absolute;
+    bottom: -2rem;
+    right: 1rem;
+}
 #qpm-mid .answerDiv .fa-pencil:hover{
     color: black;
 }

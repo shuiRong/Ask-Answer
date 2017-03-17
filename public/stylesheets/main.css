@@ -7,7 +7,7 @@ html{
 }
 body {
   font: 12px;
-	font-family:'Microsoft YaHei','Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Noto Sans CJK SC','WenQuanYi Micro Hei',Arial,sans-serif;
+	font-family: Baskerville, Georgia, "Liberation Serif", "Kaiti SC", STKaiti, "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, DFKai-SB, "TW\-Kai", serif;sans-serif;
   background: #f7f8fa;
 	min-width:850px;
 }
