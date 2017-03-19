@@ -7,8 +7,13 @@ $(document).ready(function(){
 
 //各种监听
 function userPageListen(){
-    //预览用户选择的图片
-    //listenUserImg();
+
+    //为上传图片的div增加hover样式．
+    uploadImgHover();
+    //预览用户选择的本地的图片．
+    $('#upe-img .uploadImg').change(function(){
+        previewImg();
+    });
     //监听回答 button
     $('#umlh-num3').click(function(){
         answerClicked();
@@ -31,45 +36,48 @@ function userPageListen(){
     });
     //监听个人编辑页的提交按钮.然后关掉编辑框.传递cookie里的用户名过去
     $('#upe-main .submit').click(function(){  
-        let formArr = $('#userPageEdit').serializeArray();
-        //console.log(formArr);
-        let formObj = {};
-        for(let i in formArr){        
-            formObj[formArr[i].name] = formArr[i].value;
-        }
-        formObj['username'] = unescape(unescape(getCookie('user')));
-        formObj['originUrl'] = window.location.href;
-
-        $.post('/api/useredit',formObj,function(res){
-            console.log(res.status);
+        let file = new FormData(document.getElementById('userPageEdit'));
+        //console.log(file);
+        $.ajax({
+            url: '/api/useredit',
+            type: 'POST',
+            data: file,
+            processData: false,
+            contentType: false,
+            success: function(res){
+                console.log(res.status);
+            }
         });
         $('#userPageEdit').css('display','none');
         $('#userHeader').css('display','block');
         $('#userMain').css('display','flex');
     });
-
-    
 }
 
-//用户上传图片本地预览,
-/*function listenUserImg(){
-    $("#upe-input").on("change", function(e){
-        var file = e.target.files[0]; //获取图片资源
-        // 只选择图片文件
-        if (!file.type.match('image.*')) {
-            return false;
-        }        
-
-        var reader = new FileReader();
-        reader.readAsDataURL(file); // 读取文件
-        // 渲染文件
-        reader.onload = function(arg) { 
-            var img = '<img class="preview" src="' + arg.target.result + '" alt="preview"/>';
-            $("#userPageEdit .preview_box").empty().append(img);   
-        };
+var uploadImgHover = function(){
+    $('#upe-img').hover(
+        function(){            
+            $('#upe-img-cover').css('display','flex');
+        },function(){            
+            $('#upe-img-cover').css('display','none');
     });
-}*/
+}
 
+//用户上传图片本地预览
+var previewImg = function(){
+    let file = $('#upe-img .uploadImg')[0].files[0];
+    if(!/image\//.test(file.type)){
+        alert('请选择图片！');
+        return;
+    }
+    let render = new FileReader();
+    render.readAsDataURL(file);
+    let result = '';
+    render.onload = function(e){
+        result = e.target.result;
+        $('#upe-img').css('background-image','url('+result+')');
+    }
+}
 
 function questionClicked(){
     $('#umlm-ans').css('display','none');

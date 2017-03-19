@@ -11,6 +11,9 @@ UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  'avatar': {  //用户的头像在服务器的path
+    type: String
+  },
   'askQuestions': { //提问的问题,id值存在数组里
     type: [],
   },

@@ -4,7 +4,8 @@ block content
     div#userPage
         div#userHeader
             div#uh-section
-                img#uhs-img(src='/images/3.jpg')
+                //-img#uhs-img(src='/images/3.jpg')
+                div#uhs-img                   
                 div#uhs-right
             div#userEditBtn 编辑个人资料
         div#userMain
@@ -37,8 +38,13 @@ block content
 
             div#uMainRight
         form(enctype="multipart/form-data")#userPageEdit
-            div#upe-img                
-            div(action="/api/useredit",method="post")#upe-main
+            div#upe-img
+                //- cover就是出来个灰色div，覆盖效果
+                div#upe-img-cover
+                    span(class='fa fa-camera')
+                    | 修改头像
+                input.uploadImg(type='file' name='avatar')
+            div#upe-main
 
                 h1 林水溶
                 span(class="fa fa-close fa-3x")

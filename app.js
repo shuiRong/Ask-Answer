@@ -36,8 +36,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+//公共静态文件夹
 app.use(express.static(path.join(__dirname,('public'))));
 app.use(express.static(path.join(__dirname,('routes'))));
+app.use(express.static(path.join(__dirname,('uploads'))));
 
 app.use('/', door);
 app.use('/door',door);

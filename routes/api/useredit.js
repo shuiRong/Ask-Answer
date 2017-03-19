@@ -1,13 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../../database/user');
+var multer = require('multer');
+var upload = multer({
+    dest: 'uploads/avatars/'   //图片上传的地方
+})
 
 router.route('/')
-    .post(function(req,res){        
+    .post(upload.single('avatar'),function(req,res){
+        //console.log(req);        
+        let username = unescape(req.cookies.user);
+        console.log('`````````````````````````````');
+        console.log(username,req.cookies.user);
         let data = req.body;
-        let tags = req.body.tags.split(/[,，;； ]/);
-        //res.redirect('/users/'+req.body.username);
-        User.update({'username': data.username},{$set:{
+        let tags = req.body.tags.split(/[,，;； ]/);        
+        
+        /*res.redirect('/users/'+ cookies.user);
+        User.update({'username': username},{$set:{
+            'avatar': req.file.path,
             'sex': data.sex,
             'description': data.description,
             'address': data.address,
@@ -21,10 +31,10 @@ router.route('/')
                 console.error('=== update error: ',err);
             }else{
                 console.log('<<< 更新用户编辑信息,成功!');
-                let url = data.originUrl.replace(/.{21}/,'');
+                //let url = data.originUrl.replace(/.{21}/,'');
                 res.send({status: '更新用户编辑信息,成功'});
             }
-        });
+        });*/
        
     });
 

@@ -23,14 +23,20 @@
     left: 0;
     display: flex;
     align-items: flex-end;
+
 }
 #uhs-img{
     width: 12rem;
     height: 12rem;
-    background: #999;
-    margin:1rem;
+    margin: 1rem;
     margin-left: 2rem;
+    position: relative;
+    background-image: url('/images/avatar.jpg');
+    background-position: 0 0;
+    background-size: 12rem 12rem;
+    background-repeat: no-repeat;
 }
+
 #uhs-right{
     width: 70%;
     height: 10rem;
@@ -190,13 +196,43 @@
     padding: 5rem;
     box-sizing: border-box;
 }
-#userPageEdit #upe-img{
+#upe-img{
     width: 12rem;
     height: 12rem;
     background: #ccc;
     margin-right: 4rem;
+    position: relative;
+    background-image: url('/images/avatar.jpg');
+    background-position: 0 0;
+    background-size: 12rem 12rem;
+    background-repeat: no-repeat;
 }
-
+#upe-img input{
+    opacity: 0;
+    height: 12rem;
+    width: 12rem;
+    position: absolute;
+    top: 0;
+}
+#upe-img-cover{
+    background: grey;
+    width: 12rem;
+    height: 12rem;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#upe-img-cover span{
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
 #upe-main{
     border-radius: 3px;
     display: flex;
