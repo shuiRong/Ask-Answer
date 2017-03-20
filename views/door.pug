@@ -6,26 +6,29 @@ html
         title 问吧 - 一个随心所问的社区
         
     body
-        div#container
-            h1 问吧
-            p#sub 告诉我, 你想知道什么?
-            div#signInAndUp
-                span#signInBtn 登录  
-                span#signUpBtn 注册
-            form#signInForm(action='signin' method='post')
-                    div
-                        input(type='text' name='usernamename'  placeholder='用户名')
-                        input(type='password' name='passwordname' placeholder='密码')
-                    input(type='submit' value='登录').sign
-            form#signUpForm(action='/signup' method='post')    
-                    div
-                        input(type='text' name='usernamename' placeholder='用户名')    
-                        input(type='password' name='passwordname' placeholder='密码')
-                        input(type='password' name='passwordname2' placeholder='重复密码')
-                    input(type='submit' value='注册').sign
-            footer 此网站为
-                a(href='https://shuirong.github.io/' target='_blanket')  林水溶
-                |   所写, 
-                a(href='https://github.com/shuiRong/Ask-Answer') 网站源码
+        div#particle-js
+            div#container
+                h1 问吧
+                p#sub 告诉我, 你想知道什么?
+                div#signInAndUp
+                    span#signInBtn 登录  
+                    span#signUpBtn 注册
+                form#signInForm(action='signin' method='post')
+                        div
+                            input(type='text' name='usernamename'  placeholder='用户名')
+                            input(type='password' name='passwordname' placeholder='密码')
+                        input(type='submit' value='登录').sign
+                form#signUpForm(action='/signup' method='post')    
+                        div
+                            input(type='text' name='usernamename' placeholder='用户名')    
+                            input(type='password' name='passwordname' placeholder='密码')
+                            input(type='password' name='passwordname2' placeholder='重复密码')
+                        input(type='submit' value='注册').sign
+                footer 此网站为
+                    a(href='https://shuirong.github.io/' target='_blanket')  林水溶
+                    |   所写, 
+                    a(href='https://github.com/shuiRong/Ask-Answer') 网站源码 
+                    span 不给个Star？
         script(src='/javascripts/jquery-3.1.1.min.js')
+        script(src='/javascripts/particles.js')
         script(src='/javascripts/publicDoor.js')

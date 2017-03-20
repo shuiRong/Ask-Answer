@@ -2,7 +2,7 @@ $(document).ready(function(){
 	listen();
 	popularBtnClicked();
 	getTags();
-	
+
 });
 
 function listen(){
