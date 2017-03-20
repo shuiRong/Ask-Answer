@@ -3,6 +3,9 @@ $(document).ready(function(){
     answerClicked();
     questionClicked();
     getUserInfo();
+    
+    //存储头像在服务器的路径．在页面加载时，更新此值
+    var avatarServerPath = '';
 });
 
 //各种监听
@@ -27,12 +30,15 @@ function userPageListen(){
         $('#userPageEdit').css('display','flex');
         $('#userHeader').css('display','none');
         $('#userMain').css('display','none');
+        $('#upe-img').css('background-image','url('+ avatarServerPath +')');
     });
-    // 编辑页的 X 按钮
+    // 编辑页的 X 按钮.把头像的url改回服务器的地址．
+    //avatarServerPath 是全局变量，在页面加载时，更新此值．
     $('#upe-main .fa-close').click(function(){
         $('#userPageEdit').css('display','none');
         $('#userHeader').css('display','block');
         $('#userMain').css('display','flex');
+        $('#uhs-img').css('background-image','url('+ avatarServerPath +')');
     });
     //监听个人编辑页的提交按钮.然后关掉编辑框.传递cookie里的用户名过去
     $('#upe-main .submit').click(function(){  
@@ -50,7 +56,7 @@ function userPageListen(){
         });
         $('#userPageEdit').css('display','none');
         $('#userHeader').css('display','block');
-        $('#userMain').css('display','flex');
+        $('#userMain').css('display','flex');        
     });
 }
 
@@ -63,7 +69,8 @@ var uploadImgHover = function(){
     });
 }
 
-//用户上传图片本地预览
+//用户上传图片本地预览.
+//而且同时把个人主页的头像也给换成用户上传的．这样，用户提交表单后看到的就是上传的了．其实此时的头像并不是来自于服务器．hack．用户如果取消编辑．就把图片的地址换成服务器的．
 var previewImg = function(){
     let file = $('#upe-img .uploadImg')[0].files[0];
     if(!/image\//.test(file.type)){
@@ -76,6 +83,7 @@ var previewImg = function(){
     render.onload = function(e){
         result = e.target.result;
         $('#upe-img').css('background-image','url('+result+')');
+        $('#uhs-img').css('background-image','url('+result+')');
     }
 }
 
@@ -101,18 +109,24 @@ function answerClicked(){
 function getUserInfo(){
     $.post('/api/getuserinfo',{user: getCookie('user')},function(res){
         let data = res.data;
+        //更新用户名
         let username = $('<span></span>');
         username.text(data.username);
         let uhsRight = $('#uhs-right');
         uhsRight.append(username);
+        //更新用户的标签
         data.tags.forEach(function(ele){
             let tag = $('<span class="uhs-tags"></span>');
             tag.text(ele);
             uhsRight.append(tag);
         });
+        //更新用户的个性签名
         let motto = $('<p></p>');
         motto.text(data.description);
-        uhsRight.append(motto);        
+        uhsRight.append(motto);
+        //更新用户头像在服务器地址．
+        avatarServerPath = data.avatar.replace(/uploads/,''); 
+        $('#uhs-img').css('background-image','url(' + avatarServerPath + ')');
     });
 }
 

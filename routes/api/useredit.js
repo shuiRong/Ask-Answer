@@ -10,12 +10,8 @@ router.route('/')
     .post(upload.single('avatar'),function(req,res){
         //console.log(req);        
         let username = unescape(req.cookies.user);
-        console.log('`````````````````````````````');
-        console.log(username,req.cookies.user);
         let data = req.body;
         let tags = req.body.tags.split(/[,，;； ]/);        
-        
-        /*res.redirect('/users/'+ cookies.user);
         User.update({'username': username},{$set:{
             'avatar': req.file.path,
             'sex': data.sex,
@@ -32,9 +28,9 @@ router.route('/')
             }else{
                 console.log('<<< 更新用户编辑信息,成功!');
                 //let url = data.originUrl.replace(/.{21}/,'');
-                res.send({status: '更新用户编辑信息,成功'});
+                res.send({status: '用户信息更新成功！'});
             }
-        });*/
+        });
        
     });
 
