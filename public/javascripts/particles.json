@@ -50,7 +50,7 @@
       "distance": 300,
       "color": "#ccc",
       "opacity": 0.4,
-      "width": 1
+      "width": 2
     },
     "move": {
       "enable": true,
@@ -84,7 +84,7 @@
       "grab": {
         "distance": 800,
         "line_linked": {
-          "opacity": 1
+          "opacity": 0.5
         }
       },
       "bubble": {
