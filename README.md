@@ -1,14 +1,25 @@
-# 问吧
+# 不知
 
->   就像它的名字,这是一个问答网站. 首先我不得不承认,这个网站没什么亮点,毕竟它不是一个商业产品,而只是我造的`一个轮子`,是我技术学习路上的`一个脚印`,更是我接来的的暑假找工作的`一把利剑`.
+>   一个问答网站．
+>
+>   `登录注册身份验证` `提问` `回答` `修改个人资料` `对回答点赞或反对` `问题添加标签` `关注其他用户` `......`
 
 #界面预览
 
-![image](/screenshots/1.png)
+`粒子化特效`
+
 ![image](/screenshots/11.png)
+
+`下雪特效` 
+
+![image](/screenshots/1.png)
+
 ![image](/screenshots/2.png)
+
 ![image](/screenshots/3.png)
+
 ![image](/screenshots/4.png)
+
 ![image](/screenshots/5.png)
 
 #技术栈
