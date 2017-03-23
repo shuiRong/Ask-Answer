@@ -1,7 +1,7 @@
 {
   "particles": {
     "number": {
-      "value": 25
+      "value": 35
     },
     "shape": {
       "type": "circle"
