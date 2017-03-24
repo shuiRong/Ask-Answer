@@ -6,12 +6,12 @@ var Answer = require('../../database/answer');
 var User = require('../../database/user');
 var moment = require('moment');
 
-//对新提交的问题处理.
+//对新提交的回答处理.
 router.route('/')
     .post(function(req,res){       
         let ansObj = req.body;
         let answer = new Answer({
-            answerProducer: ansObj.user,
+            answerProducer: req.session.user,
             answerContent: ansObj.answer,
             time: new moment().format()
         });                
@@ -25,7 +25,7 @@ router.route('/')
             }else{                
                 let answerID = doc['_id'];
                 //把用户回答的标题,id,内容,id,时间,用户名存到用户collection里
-                storeUserAns.call(this,ansObj.questionTitle,ansObj.question,ansObj.answer,answerID,answer.time,unescape(unescape(ansObj.user)));
+                storeUserAns.call(this,ansObj.questionTitle,ansObj.question,ansObj.answer,answerID,answer.time,unescape(unescape(req.session.user)));
                 //把问题的answers数组取出来.
                 let answers = [answerID];                
                 Question.findOne({'_id': ansObj.question},'answers',function(err,doc2){

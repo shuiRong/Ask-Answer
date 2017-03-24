@@ -2,14 +2,18 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var helmet = require('helmet');
 
-var index = require('./routes/index');
+
+//var index = require('./routes/index');
 var door = require('./routes/door');
-var signin = require('./routes/signin');
-var signup = require('./routes/signup');
 var question = require('./routes/question');
+var login = require('./routes/api/login');
+var logout = require('./routes/api/logout')
+var signup = require('./routes/api/signup');
 var newquestion = require('./routes/api/newquestion');
 var newanswer = require('./routes/api/newanswer');
 var getuserquestion = require('./routes/api/getuserquestion');
@@ -28,13 +32,26 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+//session 里的设置
+app.set('trust proxy',1); //生产模式下是用
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+//全局的路由都可以访问到
+app.use(session({
+    secret: '*mF.13%2Fs_&S*8d:`^&', //加密sessionId用
+    name: 'sessionId',
+    saveUninitialized: true,
+    resave: true,
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 7,httpOnly: true}  //其中的sessionId的失效时间
+  })
+);
+
 
 //公共静态文件夹
 app.use(express.static(path.join(__dirname,('public'))));
@@ -43,9 +60,10 @@ app.use(express.static(path.join(__dirname,('uploads'))));
 
 app.use('/', door);
 app.use('/door',door);
-app.use('/signin',signin);
-app.use('/signup',signup);
 app.use('/question/*',question);
+app.use('/api/login',login);
+app.use('/api/signup',signup);
+app.use('/api/logout',logout);
 app.use('/api/newquestion',newquestion);
 app.use('/api/getuserquestion',getuserquestion);
 app.use('/api/getuseranswer',getuseranswer);

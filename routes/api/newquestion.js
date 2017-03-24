@@ -12,11 +12,11 @@ router.route('/')
     .post(function(req,res){
         //再次处理下
         let quest = req.body;
+        let sess = req.session;
         quest.time = new moment().format(); //加入问题提交的时间  2017-02-24T19:31:42+08:00
         quest.time = new moment().format().replace(/\+.*/,''); 
         quest.tags = quest.tags.split(/[,，; ]/);
-        let user = unescape(unescape(quest.questionProducer));
-
+        let user = unescape(unescape(sess.user));
         let question = new Question({
             title: quest.title,
             description: quest.description,

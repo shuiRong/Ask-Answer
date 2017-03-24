@@ -1,3 +1,4 @@
+//主页
 $(document).ready(function(){
 	listen();
 	popularBtnClicked();
@@ -9,14 +10,11 @@ function listen(){
 	//字符码,不是汉字
 	let username= getCookie('user');
 	//获取本来就存在的但是没有显示出来的元素
-	let signinHTML = $('#signin').html();
+	let loginHTML = $('.login').html();
 	let hanzi = unescape(unescape(username));
 	//初始化header的用户名
-	$('#signin').html(hanzi + signinHTML);
+	$('.login').html(hanzi + loginHTML);
 
-	//监听 退出按钮 删除document 的 cookie
-	
-	
 	//监听提问按钮。 点击后显示提问窗口并且模糊化页面其它部分
 	$('#askSpan').click(function(){
 		$('#newDebateDialog').css('display','block');
@@ -36,11 +34,9 @@ function listen(){
 		cancel();
 	});
 		
-	//提问框的 提交按钮 的监听事件
-	
+	//提问框的 提交按钮 的监听事件	
 	$('#release').on('click',function(){
-		let question = {'title':null,'description':null,'tags':null,'time':null,'questionProducer':null};
-		question.questionProducer = username;
+		let question = {'title':null,'description':null,'tags':null,'time':null,'questionProducer':null};		
 		question.title = $('#textareaOne').val();
 		question.description = $('#textareaTwo').val();
 		question.tags = $('#textareaThree').val();
@@ -52,18 +48,20 @@ function listen(){
 	});
 
 	//导航栏用户名元素实现hover效果
-	$('#signin').hover(function(){
-		$('#signinHover').css('display','block');
+	$('#header .login').hover(function(){
+		$('#loginHover').css('display','block');
 	},function(){
-		$('#signinHover').css('display','none');
+		$('#loginHover').css('display','none');
 	});
 
-	//导航栏用户名下元素的hover效果
+	//导航栏用户名下面的元素的hover效果
 	//...
 
-	//导航栏 退出的退出功能
-	$('#signinHover > p:last-child').click(function(){
-		//....
+	//导航栏 退出的退出功能.
+	$('#loginHover #logout').click(function(){
+		$.get('/api/logout',function(){
+			window.location.href='/';
+		})
 	});
 	//导航栏 个人用户: 根据cookie的user改变a的href属性
 	$('#userPageBtn').attr('href','/users/' + username);

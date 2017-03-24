@@ -10,7 +10,6 @@ $(document).ready(function(){
 
 //登录页的一些监听
 var publicDoorListen = function(){
-    console.log($(window).height()+'px');
     $('#signInBtn').click(function(){
         $('#signUpBtn').css('color','grey');
         $('#signInBtn').css('color','black');

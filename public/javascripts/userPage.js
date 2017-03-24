@@ -48,8 +48,8 @@ function userPageListen(){
             url: '/api/useredit',
             type: 'POST',
             data: file,
-            processData: false,
-            contentType: false,
+            processData: false, //必须这么设置才能传FormData
+            contentType: false,  //同上
             success: function(res){
                 console.log(res.status);
             }
@@ -93,7 +93,7 @@ function questionClicked(){
     $('#umlh-num1').css('font-weight','bold');
     $('#umlh-num3').css('font-weight','normal');
     if($('#umlm-quest').children().length===0){  //如果此元素子元素为0,就从服务区获取数据,并渲染
-        renderData('question',getCookie('user'));
+        renderData('question');
     }
 }
 
@@ -102,12 +102,12 @@ function answerClicked(){
     $('#umlm-ans').css('display','flex');
     $('#umlh-num3').css('font-weight','bold');
     $('#umlh-num1').css('font-weight','normal');
-    renderData('answer',getCookie('user'));
+    renderData('answer');
 }
 
 // 页面加载时获取用户个人信息
 function getUserInfo(){
-    $.post('/api/getuserinfo',{user: getCookie('user')},function(res){
+    $.get('/api/getuserinfo',function(res){
         let data = res.data;
         //更新用户名
         let username = $('<span></span>');
@@ -130,9 +130,9 @@ function getUserInfo(){
     });
 }
 
-function renderData(arr,username){
+function renderData(arr){
     console.log('开始查询 提问数据');
-    $.post('/api/getuser' + arr,{username: username},function(res){
+    $.get('/api/getuser' + arr,function(res){
         console.log(res.status);
         if(arr==='question'){
             $('#mhlh-num2').text(res.data.length);

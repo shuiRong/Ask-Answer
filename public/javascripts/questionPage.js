@@ -9,12 +9,10 @@ function questionPageListen(){
     $('#qpm-down .submit').click(function(){
         let questionID = getQuestionID();
         // getCookie 函数在main.js里,这里可以调用的到
-        let user = getCookie('user');
         let answer = $('textarea').val();
         $.post('/api/newanswer',{
                 question: questionID,
-                questionTitle: $('#qpm-up .title').text(),
-                user: user,
+                questionTitle: $('#qpm-up .title').text(),        
                 answer: answer},function(res){
                     console.log(res.status);
                 });

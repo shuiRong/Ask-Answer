@@ -4,7 +4,7 @@
 	height:4rem;
 	position:relative;
 }
-#header .navSpan, #header #signin{
+#header .navSpan, #header .login{
 	display:inline-block;
 	color:white;
 	font-size:2.7rem;
@@ -20,7 +20,7 @@
 	color: white;
 	text-decoration: none;
 }
-#header #signin{
+#header .login{
 	background:white;
 	color:black;
 	width:10rem;
@@ -33,7 +33,7 @@
 	font-size:1.5rem;
 	right:12%;
 }
-#signinHover{
+#loginHover{
 	position:relative;
 	left:-1px;
 	width:10rem;
@@ -45,7 +45,7 @@
 	text-align:left;
 	display:none;
 }
-#signinHover p{
+#loginHover p{
 	margin-top:0.7rem;
 	margin-left:1rem;
 }

@@ -9,7 +9,7 @@ var upload = multer({
 router.route('/')
     .post(upload.single('avatar'),function(req,res){
         //console.log(req);        
-        let username = unescape(req.cookies.user);
+        let username = unescape(req.session.user);
         let data = req.body;
         let tags = req.body.tags.split(/[,，;； ]/);        
         User.update({'username': username},{$set:{

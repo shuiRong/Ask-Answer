@@ -6,9 +6,8 @@ var User = require('../../database/user');
 
 //监听  /api/getuserquestion
 router.route('/')
-    .post(function(req,res){
-        
-        let user = unescape(unescape(req.body.username));
+    .get(function(req,res){
+        let user = unescape(unescape(req.session.user));
         let data = [];
         User.findOne({'username': user},'askQuestions',function(err,doc){
             if(err){

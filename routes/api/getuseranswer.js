@@ -5,13 +5,13 @@ var User = require('../../database/user');
 
 //返回 个人用户主页的回答,数据.
 router.route('/')
-    .post(function(req,res){
-        let username = unescape(unescape(req.body.username));        
+    .get(function(req,res){
+        let username = unescape(unescape(req.session.user));        
         User.findOne({'username': username},'answers',function(err,doc){
             if(err){
                 console.error('=== find error: ',err);
             }else{
-                res.send({status: '获取用户回答信息,成功!',data: doc.answers});              
+                res.send({status: '获取用户回答信息,成功!',data: doc.answers});
             }
         });        
     });
