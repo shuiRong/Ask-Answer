@@ -6,14 +6,16 @@ var upload = multer({
     dest: 'uploads/avatars/'   //图片上传的地方
 })
 
+//更改用户编辑的个人信息
 router.route('/')
     .post(upload.single('avatar'),function(req,res){
-        //console.log(req);        
+        //console.log(req);
         let username = unescape(req.session.user);
         let data = req.body;
         let tags = req.body.tags.split(/[,，;； ]/);        
+        let avatar = req.file.path.replace(/uploads/,'');
         User.update({'username': username},{$set:{
-            'avatar': req.file.path,
+            'avatar': avatar,
             'sex': data.sex,
             'description': data.description,
             'address': data.address,

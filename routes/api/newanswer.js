@@ -13,43 +13,51 @@ router.route('/')
         let answer = new Answer({
             answerProducer: req.session.user,
             answerContent: ansObj.answer,
-            time: new moment().format()
+            time: new moment().format(),
+            avatar: '', //回答者的头像
         });                
         //记录回答存储状态
         let satus = '';
-        answer.save(function(err,doc){
+        User.findOne({'username': unescape(unescape(req.session.user))},'avatar',function(err,doc4){
             if(err){
-                console.error('=== 答案存储出错',err);
-                status = '回答存储失败!';
-                res.send({status: status});
-            }else{                
-                let answerID = doc['_id'];
-                //把用户回答的标题,id,内容,id,时间,用户名存到用户collection里
-                storeUserAns.call(this,ansObj.questionTitle,ansObj.question,ansObj.answer,answerID,answer.time,unescape(unescape(req.session.user)));
-                //把问题的answers数组取出来.
-                let answers = [answerID];                
-                Question.findOne({'_id': ansObj.question},'answers',function(err,doc2){
+                console.error('=== findOne error: ',err);
+            }else{
+                answer.avatar = doc4.avatar;
+
+                answer.save(function(err,doc){
                     if(err){
-                        console.error('=== find error',err);
-                    }else{                                                
-                        answers = answers.concat(doc2.answers);
-                        Question.update({'_id': ansObj.question},{$set:{'answers': answers}},function(err,doc3){
+                        console.error('=== 答案存储出错',err);
+                        status = '回答存储失败!';
+                        res.send({status: status});
+                    }else{                
+                        let answerID = doc['_id'];
+                        //把用户回答的标题,id,内容,id,时间,用户名存到用户collection里
+                        storeUserAns.call(this,ansObj.questionTitle,ansObj.question,ansObj.answer,answerID,answer.time,unescape(unescape(req.session.user)));
+                        //把问题的answers数组取出来.
+                        let answers = [answerID];                
+                        Question.findOne({'_id': ansObj.question},'answers',function(err,doc2){
                             if(err){
                                 console.error('=== find error',err);
-                                status = '回答存储失败!';
-                                res.send({status: status});
-                            }else{
-                                console.log('<<< 存储新的回答,成功!');
-                                status = '回答存储成功!'
-                                res.send({status: status});
+                            }else{                                                
+                                answers = answers.concat(doc2.answers);
+                                Question.update({'_id': ansObj.question},{$set:{'answers': answers}},function(err,doc3){
+                                    if(err){
+                                        console.error('=== find error',err);
+                                        status = '回答存储失败!';
+                                        res.send({status: status});
+                                    }else{
+                                        console.log('<<< 存储新的回答,成功!');
+                                        status = '回答存储成功!'
+                                        res.send({status: status});
+                                    }
+                                });
                             }
                         });
                     }
-                });                
-                //把新的回答合并到之前的回答数组里,然后更新问题.                
-                
+                });
             }
         });
+
     });
 
 //把用户回答的标题,id,内容,id,时间,用户名存到用户collection里

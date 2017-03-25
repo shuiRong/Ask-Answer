@@ -29,17 +29,18 @@ function getQuestionID(){
 //从后获取问题答案数据,然后动态加载. 同时根据答案里是否有此用户的回答来决定是否显示回答框
 function listAnswers(){
     let questionID = getQuestionID();
-    $.post('/api/getanswers',{username: getCookie('user'),questionID: questionID},function(res){
+    $.post('/api/getanswers',{questionID: questionID},function(res){
         //修改页面回答数量
         $('#qpm-up-answer-count span:first-child').text(res.data.length + '个回答');
         dealTimeFormat(res.data);
-        let data = sortByScore(res.data);        
-        dynamicAddAnswer(res.data);
+        let data = sortByScore(res.data);
+        console.log(res);
+        dynamicAddAnswer(res.data,res.user);
     });
 }
 
 //动态生成DOM元素
-function dynamicAddAnswer(data){
+function dynamicAddAnswer(data,username){
     let qpmMid = $('#qpm-mid');
     data.forEach(function(ele){
         let answerDiv = $('<div class="answerDiv"></div>');
@@ -57,7 +58,7 @@ function dynamicAddAnswer(data){
         
         //检测cookie里的用户在不在此答案的voter里,如果在的话,对应的up/down的clicked变成1,即点击奇数次,然后样式变变.
         ele.voter.forEach(function(ele){
-            if(ele[0] == getCookie('user')){  //此用户点过赞同或反对
+            if(ele[0] == username){  //此用户点过赞同或反对
                 if(ele[1] == '1'　&& ele[2]== '1'){ // 点的是赞同并且点了奇数次
                     up.attr('clicked','1');
                     up.css({'color':'black','font-size':'3em'});
@@ -70,11 +71,11 @@ function dynamicAddAnswer(data){
 
         let answerName = $('<span class="answerName"></span>');
         let answerMotto = $('<span class="answerMotto"></span>');
-        let answerImg = $('<img class="answerImg" src="/images/3.jpg">');
+        let answerImg = $('<img class="answerImg" src="/images/avatar.jpg">');
         let answerText = $('<div class="answerText"></div>');
         //如果这个回答是cookie里的这个人的,那么这个答案就填加修改按钮.
         let answerModify = null;
-        if(getCookie('user')==ele.answerProducer){   //如果有此用户的回答
+        if(username==ele.answerProducer){   //如果有此用户的回答
             answerModify = $('<span class="fa fa-pencil" onclick="ansModify(this)">&nbsp;修改</span>');
             //把修改按钮消失掉
             $('#qpm-down').css('display','none');        
@@ -85,6 +86,7 @@ function dynamicAddAnswer(data){
 
         answerDiv.attr('id',ele._id);  //存储答案的_id,更新答案时用
         answerTime.text('发布于 ' + ele.time);
+        answerImg.attr('src',ele.avatar);
         answerText.html(marked(ele.answerContent));
         answerMotto.text('需要从数据库里获取');
         answerName.text(unescape(unescape(ele.answerProducer)));
@@ -152,7 +154,7 @@ function answerTextSubmit(which){
     superParent.children('.answerMD').text(answer);
     superParent.children('.answerText').html(marked(answer));
     //再更新的回答提交到后端接口.
-    $.post('/api/updateanswer',{username: getCookie('user'),answer: answer,answerID: superParent.attr('id')},function(res){
+    $.post('/api/updateanswer',{answer: answer,answerID: superParent.attr('id')},function(res){
     });
 
     //重新生成回答修改按钮
@@ -206,7 +208,7 @@ var upVote = function(which){
     //改变中间的分数    
     $(which.parentElement.children[1]).text(score);
     let answerID = $(which.parentElement.parentElement).attr('id');
-    let user = getCookie('user');
+    let user = ''; //这个user是空值,后端会换成session里的username
     /*
         'voter':[user,1,1]   记录点赞或反对的用户.第二个参数表示用户点的是up/down,第三个参数表示用户点击up/down的次数.
     */
@@ -247,7 +249,8 @@ var downVote = function(which){
     $(which.parentElement).attr('score',score);
     //改变中间的分数
     $(which.parentElement.children[1]).text(score);
-    let user = getCookie('user');
+    //这个user不会被后端信任,后端从session里取user
+    let user = '';
     let clicks = $(which).attr('clicked');   //这条语句的注释看在upVoter()里
     let answerID = $(which.parentElement.parentElement).attr('id');
     $.post('/api/changescore',{'answerID': answerID,'arr': score,'voter':[user,0,clicks]},function(res){

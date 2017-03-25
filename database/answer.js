@@ -21,6 +21,9 @@ AnswerSchema = new mongoose.Schema({
     },
     voter: { //对这个答案点赞或者反对的人. [['林水溶',1]}]  //1 代表赞,0代表反对
         type: Array
+    },
+    avatar: { //回答者的头像的路径
+        type: String,
     }
 });
 

@@ -28,6 +28,9 @@ QuestionSchema = new mongoose.Schema({
   weight: {  //问题的权重
     type: Number,
     default: 0
+  },
+  avatar: { //问题提出者的头像URL
+    type: String
   }
 });
 

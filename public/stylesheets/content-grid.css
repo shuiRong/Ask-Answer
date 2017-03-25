@@ -1,3 +1,4 @@
+/*主页index*/
 #content-grid{
 	list-style: none;
 }
@@ -24,7 +25,7 @@
 }
 
 #content-grid .itemImg{
-	background: grey;
+	background: #fff;
 	width: 8rem;
 	height: 8rem;
 	margin-right:2rem;

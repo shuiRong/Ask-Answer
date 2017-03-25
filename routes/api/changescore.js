@@ -13,8 +13,10 @@ router.route('/')
         let data = req.body;      
         //更新回答的权重,回答的voter,即点赞反对者的用户名和行为
         let voter;
+        // 不知为何,传过来的json的voter属性变成这个了.   data['voter[]'];
         let dataVoter = data['voter[]'];
-       // 不知为何,传过来的json的voter属性变成这个了.   data['voter[]'];
+        //覆盖前端传来的user.因为传来的user来自cookie,不被信任.可以防XSS
+        dataVoter[0] = req.session.user;
         Answer.findOne({'_id': data.answerID},'voter',function(err,doc){
             if(err){
                 console.error('=== findOne error: ',err);

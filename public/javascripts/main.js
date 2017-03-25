@@ -118,15 +118,18 @@ function dynamicAddDOM(parentDiv,data){
 	data.forEach(function(ele){
 		//初始化DOM元素.
 		var itemLi = $('<li class="itemLi"></li>');
-		var itemImage = $('<img class="itemImg" src="/images/avatar.jpg">');
+		var itemImage = $('<img class="itemImg" src="">');
 		var liContent = $('<div class="li-content"></div>');
 		var itemTitle = $('<a class="itemTitle" href="" target="_blanket"></a>');
 		var itemDes = $('<p class="itemDes"></p>');		
 		var questionProducer = $('<span class="questionProducer"></span>');
 		var itemTags = $('<span class="itemTags"></span>');
 		//根据数据,填充DOM元素
-		itemImage.attr('src',ele.image); //数据库里还没有
-		itemTitle.attr('href','/question/' + ele['_id']);//数据库里还没有
+		if(ele.avatar){
+			//不知为何,加上这句为请求/api/uploads/avatars/.... 然后not found error.
+			itemImage.attr('src',ele.avatar); 
+		}
+		itemTitle.attr('href','/question/' + ele['_id']);
 		itemTitle.attr('target','_blank');
 		itemTitle.text(ele.title);
 		itemDes.text(ele.description);			

@@ -124,8 +124,8 @@ function getUserInfo(){
         let motto = $('<p></p>');
         motto.text(data.description);
         uhsRight.append(motto);
-        //更新用户头像在服务器地址．
-        avatarServerPath = data.avatar.replace(/uploads/,''); 
+        //更新用户头像的src为服务器地址．
+        avatarServerPath = data.avatar;
         $('#uhs-img').css('background-image','url(' + avatarServerPath + ')');
     });
 }
