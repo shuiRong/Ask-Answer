@@ -1,5 +1,6 @@
 $(document).ready(function(){    
     userPageListen();
+    //加载这个目的是为了显示回答旁边的数字,但这样做,请求了所有数据而没有用.不可取,但我懒的改了.嘿嘿.
     answerClicked();
     questionClicked();
     getUserInfo();
@@ -31,6 +32,7 @@ function userPageListen(){
         $('#userHeader').css('display','none');
         $('#userMain').css('display','none');
         $('#upe-img').css('background-image','url('+ avatarServerPath +')');
+        $('#upe-main > h1').text(unescape(unescape(getCookie('user'))));
     });
     // 编辑页的 X 按钮.把头像的url改回服务器的地址．
     //avatarServerPath 是全局变量，在页面加载时，更新此值．
@@ -133,7 +135,6 @@ function getUserInfo(){
 function renderData(arr){
     console.log('开始查询 提问数据');
     $.get('/api/getuser' + arr,function(res){
-        console.log(res.status);
         if(arr==='question'){
             $('#mhlh-num2').text(res.data.length);
             //动态添加 DOM 元素
@@ -160,7 +161,9 @@ function renderData(arr){
                 $('#umlm-quest').append(item);
             });            
         }else if(arr==='answer'){
-            let umlmAns = $('#umlm-ans');
+            //在页面加载时已经加载过一次这个.所以先把div清空下
+            let umlmAns = $('#umlm-ans').empty();
+            console.log(umlmAns.children().length);
             //改变回答的个数
             $('#umlh-num4').text(res.data.length);
             res.data.forEach(function(ele){
@@ -175,7 +178,9 @@ function renderData(arr){
                 itemTime.text(ele.time);
 
                 item.append(itemTitle).append(itemAnswer).append(itemTime).append(itemComment);
+                console.log(item);
                 umlmAns.append(item);
+                console.log(umlmAns.children().length);
             });
         }
     });
