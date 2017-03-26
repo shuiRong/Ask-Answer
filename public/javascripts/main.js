@@ -175,6 +175,7 @@ function addTags(data){
 function cancel(){
 	$('#newDebateDialog').css('display','none');
 	$('#coverDiv').css('display','none');
+	location.reload(true);
 };
 
 //得到document的cookie里的 键对应的值;
