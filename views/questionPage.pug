@@ -16,30 +16,10 @@ block content
                     span 0个回答
                     span 默认排序
             div#qpm-mid
-                //- div.answerDiv
-                //-     div.judge
-                //-         span.up
-                //-         span.score
-                //-         span.down
-                //-     span.answerName 王德福
-                //-     span.answerMotto  http://jiangshanmeta.github.io js围观者
-                //-     a.answerImg 
-                //-     div.answerText 
-                //-         | 说自己精通交互设计的，行，用css3写一个动画小球从左跑到右，完了抖一下，停住。
-                //-         | 说自己精通javascript的，给一段闭包代码说说这段代码在弄啥呢？
-                //-         | 说自己熟悉网络协议,http://www.google.com，说下返回的状态码是啥意思。
-                //-         | 我觉得我已经很没有底线了。但是………
-                //-         | 遇到一个说，卧槽，你们家wifi怎么断了？
-                //-         | 然后我很认真地告诉他，这是一个假网站。
-                //-     span.fa.fa-pencil.modifyBtn 修改
-                //-     p
-                //-         span.answerTime 发布于 2017-2-15 15:32
-                //-         span.comment(class='fa fa-comment') &nbsp;评论
-
                                       
             div#qpm-down                   
                 span.fa.fa-window-maximize
-                textarea#temp1(placeholder="输入你的回答...")
+                textarea#newAnswer(placeholder="输入你的回答...")
                 span.submit 发布回答
 
         div#questionPageSider
@@ -47,4 +27,5 @@ block content
             span.questionProducer= data.questionProducer
     script(src='/javascripts/marked.min.js')
     script(src='/javascripts/highlight.min.js')
+    script(src='/javascripts/xss-filters.min.js')
     script(src='/javascripts/questionPage.js')

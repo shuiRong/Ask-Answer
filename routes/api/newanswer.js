@@ -5,6 +5,7 @@ var Question = require('../../database/question');
 var Answer = require('../../database/answer');
 var User = require('../../database/user');
 var moment = require('moment');
+var xssFilters = require('xss-filters');
 
 //对新提交的回答处理.
 router.route('/')
@@ -12,7 +13,7 @@ router.route('/')
         let ansObj = req.body;
         let answer = new Answer({
             answerProducer: req.session.user,
-            answerContent: ansObj.answer,
+            answerContent: xssFilters.inHTMLData(ansObj.answer),
             time: new moment().format(),
             avatar: '', //回答者的头像
         });                

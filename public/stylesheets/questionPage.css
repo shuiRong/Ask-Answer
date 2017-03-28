@@ -108,8 +108,11 @@
     position: relative;
 }
 #qpm-mid .textarea{
-    width: 98%;
+    width: 95%;
     min-height: 30rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    line-height: 25px;
 }
 #qpm-mid .answerMD{
     display: none;

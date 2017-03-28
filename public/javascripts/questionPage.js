@@ -8,15 +8,15 @@ function questionPageListen(){
     //监听 发布答案按钮.
     $('#qpm-down .submit').click(function(){
         let questionID = getQuestionID();
-        // getCookie 函数在main.js里,这里可以调用的到
         let answer = $('textarea').val();
         $.post('/api/newanswer',{
                 question: questionID,
-                questionTitle: $('#qpm-up .title').text(),        
+                questionTitle: $('#qpm-up .title').text(),
                 answer: answer},function(res){
-                    console.log(res.status);
+                    // console.log(res.status);
                 });
-        $('textarea').val('');
+        $('#newAnswer').val('').css('display','none');
+        location.reload(false);
     });    
 };
 
@@ -34,8 +34,8 @@ function listAnswers(){
         $('#qpm-up-answer-count span:first-child').text(res.data.length + '个回答');
         dealTimeFormat(res.data);
         let data = sortByScore(res.data);
-        console.log(res);
         dynamicAddAnswer(res.data,res.user);
+
     });
 }
 
@@ -87,7 +87,8 @@ function dynamicAddAnswer(data,username){
         answerDiv.attr('id',ele._id);  //存储答案的_id,更新答案时用
         answerTime.text('发布于 ' + ele.time);
         answerImg.attr('src',ele.avatar);
-        answerText.html(marked(ele.answerContent));
+        //对markdown文本进行xss转义
+        answerText.html(marked(xssFilters.inHTMLData(ele.answerContent)));
         answerMotto.text('需要从数据库里获取');
         answerName.text(unescape(unescape(ele.answerProducer)));
 
@@ -110,7 +111,8 @@ var ansModify = function(which){
         //如果用户第一次点击修改按钮的话，生成textarea，以后只用改变display        
         if($(superParentEle).children('.textarea').length==0){            
             let textarea = $('<textarea class="textarea"></textarea>');
-            textarea.val(answerMD);
+            //对markdown文本进行xss转义
+            textarea.val(xssFilters.inHTMLData(answerMD));
             $(superParentEle).append(textarea);
         }else{
             $(superParentEle).children('.textarea').css('display','block');

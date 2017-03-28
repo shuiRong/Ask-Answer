@@ -4,7 +4,8 @@ var User = require('../../database/user');
 var multer = require('multer');
 var upload = multer({
     dest: 'uploads/avatars/'   //图片上传的地方
-})
+});
+var xssFilters = require('xss-filters');
 
 //更改用户编辑的个人信息
 router.route('/')

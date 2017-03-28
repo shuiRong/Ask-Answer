@@ -13,7 +13,7 @@ UserSchema = new mongoose.Schema({
   },
   'avatar': {  //用户的头像在服务器的path
     type: String,
-    default: '/avatars/e06ece9366c7f59f6a1d0a6c2898b06c'
+    default: '/avatars/f472321005ffb7e862f44bc105eb9a0d'
   },
   'askQuestions': { //提问的问题,id值存在数组里
     type: [],
