@@ -10,19 +10,44 @@ $(document).ready(function(){
 
 //登录页的一些监听
 var publicDoorListen = function(){
-    $('#signInBtn').click(function(){
+    $('#logInBtn').click(function(){
         $('#signUpBtn').css('color','grey');
-        $('#signInBtn').css('color','black');
-        $('#signInForm').css('display','flex');
+        $('#logInBtn').css('color','black');
+        $('#logInForm').css('display','flex');
         $('#signUpForm').css('display','none');
     });
     $('#signUpBtn').click(function(){
         $('#signUpBtn').css('color','black');
-        $('#signInBtn').css('color','grey');
-        $('#signInForm').css('display','none');
+        $('#logInBtn').css('color','grey');
+        $('#logInForm').css('display','none');
         $('#signUpForm').css('display','flex');
     });
-}
+    //注册表单的邮箱格式验证
+    $("#container .email").on({
+        keyup: emailNoti,
+        //当email失去焦点时再验证邮件格式，这时因为有的用户可能没用键盘输入邮箱，比如说paste
+        focusout: emailNoti
+    });
+    //监听获取验证码的按钮．通知后端发送认证邮件．
+    $('#container .getCaptcha').click(function(){
+        $.post('/api/sendemail',{'email':$('#container .email').val()},function(res){
+            //
+        })
+    });
+};
+
+//邮箱inpu的监听事件函数内容
+var emailNoti = function(){
+    let email = $("#container .email");
+    let judge = /^.+@.+\.com$/.test(email.val());
+    if(!judge){
+        let notitation = $('<span class="emailNoti">你的邮箱格式不正确</span>');
+        notitation.css({"position": "absolute","left": email.offset().left + email.width() + 25 + "px","top": email.offset().top + email.height()/3 + "px" ,"color": "red"});
+        $("#container").append(notitation);
+    }else{
+        $('#container .emailNoti').text('');
+    }
+};
 
 //存储了两套登录注册页的特效．每次加载页面随机用一套．cool
 var randomBgStyle = function(){

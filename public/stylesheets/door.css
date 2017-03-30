@@ -32,7 +32,7 @@ canvas{
     color: grey;
     letter-spacing: 3px;
 }
-#signInAndUp span{
+#InAndUp span{
     box-sizing: border-box;
     display: inline-block;
     width: 25%;
@@ -42,10 +42,10 @@ canvas{
     line-height: 2.5rem;
     color: grey;
 }
-#signInAndUp #signinBtn{
+#InAndUp #loginBtn{
     border-right: transparent;
 }
-#container #signInBtn{
+#container #logInBtn{
     color: black;
 }
 #signUpForm{
@@ -56,10 +56,12 @@ form{
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
+
 }
 form div{
     width: 100%;
     border: 1px solid #ddd;
+    position: relative;
 }
 form input{
     font-size: 15px;
@@ -81,7 +83,22 @@ form .sign{
     margin-top: 1rem;
     letter-spacing: 2px;
 }
-/*.sign:hover特效用JS实现*/
+form .getCaptcha{
+    height: 2.9rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 0 1rem;
+    letter-spacing: 2px;
+    font-size: 17px;
+    position: absolute;
+    right: 0;
+    width: 50%;
+    background: #fff;
+}
+form .getCaptcha:hover{
+    background: black;
+    color: white;
+}
 
 #container footer{
     position: fixed;
