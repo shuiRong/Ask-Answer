@@ -9,14 +9,14 @@ $(document).ready(function(){
 });
 
 //登录页的一些监听
-var publicDoorListen = function(){
+let publicDoorListen = function(){
     $('#logInBtn').click(function(){
         $('#signUpBtn').css('color','grey');
         $('#logInBtn').css('color','black');
         $('#logInForm').css('display','flex');
         $('#signUpForm').css('display','none');
     });
-    $('#signUpBtn').click(function(){
+    $('#signUpBtn').click(function(event){
         $('#signUpBtn').css('color','black');
         $('#logInBtn').css('color','grey');
         $('#logInForm').css('display','none');
@@ -29,17 +29,40 @@ var publicDoorListen = function(){
         focusout: emailNoti
     });
     //监听获取验证码的按钮．通知后端发送认证邮件．
-    $('#container .getCaptcha').click(function(){
-        $.post('/api/sendemail',{'email':$('#container .email').val()},function(res){
-            //
+    $('#container .getCaptcha').click(function(event){
+        event.preventDefault();
+        let notitation = $("<span class='emailNoti'></span>");
+        //如果email格式不对的话．
+        if(!judgeEmail($('#container .email').val())){
+            notitation.empty().text('请输入正确的邮箱');
+            $('#signUpForm > div').append(notitation);
+            return;
+        }
+        let div = $('#signUpForm div').children();
+        let obj = {
+            "email": $(div[0]).val(),
+            "username": $(div[1]).val(),
+            "password": $(div[2]).val(),
+            "password2": $(div[3]).val()
+        };
+        $.post('/api/sendemail',{'form': obj},function(res){
+            if(res){ //如果有回复，那就是邮件发送成功的信息．
+                notitation.empty().text('邮件已发送');
+                $('#signUpForm > div').append(notitation);
+            }
         })
+    });
+
+    $('#formSignUp').click(function(event){
+        event.preventDefault();
+        signupbtnClick();
     });
 };
 
 //邮箱inpu的监听事件函数内容
-var emailNoti = function(){
+let emailNoti = function(){
     let email = $("#container .email");
-    let judge = /^.+@.+\.com$/.test(email.val());
+    let judge = judgeEmail(email.val());
     if(!judge){
         let notitation = $('<span class="emailNoti">你的邮箱格式不正确</span>');
         notitation.css({"position": "absolute","left": email.offset().left + email.width() + 25 + "px","top": email.offset().top + email.height()/3 + "px" ,"color": "red"});
@@ -50,7 +73,7 @@ var emailNoti = function(){
 };
 
 //存储了两套登录注册页的特效．每次加载页面随机用一套．cool
-var randomBgStyle = function(){
+let randomBgStyle = function(){
     let number = Math.random()*10;
     //第一套背景特效：　下雪
     if(number>=5){
@@ -80,4 +103,34 @@ var randomBgStyle = function(){
 		    //成功加载particle设置信息
 	    });
     }
+};
+
+//注册按钮的点击
+let signupbtnClick = function(){
+    //如果邮箱提示span的有文本信息，那一定就是提示格式不正确的
+    if($('#signUpForm .emailNoti').text().length > 5){
+        $('#signUpForm .emailNoti').css('color','green');
+        return;
+    }
+    //还有一些其他的判断，比如username有没有特殊字符，所有的input都填了没,实时判断email和username是不是已注册过．．．很简单但是没有趣味．不写了．．．反正是这个网站是自己写着玩的．傲娇.png
+    let div = $('#signUpForm div').children();
+    let obj = {
+        "email": $(div[0]).val(),
+        "username": $(div[1]).val(),
+        "password": $(div[2]).val(),
+        "password2": $(div[3]).val(),
+        "captcha": $(div[4]).val()
+    };
+    $.post('/api/signup',{'form': obj},function(res){
+        //
+        window.location.href = '/';
+    })
+};
+
+//验证邮箱格式是否正确
+let judgeEmail = function(email){
+    if(/^.+@.+\.com$/.test(email)){
+        return true;
+    }
+    return false;
 }

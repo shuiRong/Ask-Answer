@@ -17,33 +17,47 @@ UserSchema = new mongoose.Schema({
   },
   'askQuestions': { //提问的问题,id值存在数组里
     type: [],
+    default: []
   },
   'sex': {   //性别
-    type: String
+    type: String,
+    default: '其他'
   },
   'answers': { // 回答的问题,id值存在数组里
-    type: []
+    type: [],
+    default: []
   },
   'description': {   //个人描述
-    type: String
+    type: String,
+    default: ''
   },
   'address': {   // 地址
-    type: String
+    type: String,
+    default: ''
   },
   'industry': {  // 所属行业
-    type: String
+    type: String,
+    default: ''
   },
   'carerrExperience': {  //职业经历
-    type: String
+    type: String,
+    default: ''
   },
   'education': {   //教育程度
-    type: String
+    type: String,
+    default: ''
   },
   'introdution': {  // 自我介绍
-    type: String
+    type: String,
+    default: ''
   },
-  tags: { //标签
-    type: []
+  'tags': { //标签
+    type: [],
+    default: []
+  },
+  'email': {
+    type: String,
+    default: ''
   }
 });
 

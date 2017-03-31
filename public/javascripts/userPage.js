@@ -45,7 +45,8 @@ function userPageListen(){
     //监听个人编辑页的提交按钮.然后关掉编辑框.传递cookie里的用户名过去
     $('#upe-main .submit').click(function(){  
         let file = new FormData(document.getElementById('userPageEdit'));
-        //console.log(file);
+        console.log(file,typeof(file));
+        console.log($('#userPageEdit').serialize());
         $.ajax({
             url: '/api/useredit',
             type: 'POST',

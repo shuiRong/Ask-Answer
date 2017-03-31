@@ -99,6 +99,15 @@ form .getCaptcha:hover{
     background: black;
     color: white;
 }
+#signUpForm .emailNoti{
+    position: absolute;
+    width: 50%;
+    line-height: 2.9rem;
+    color: red;
+    text-align: left;
+    padding-left: 1rem;
+    font-weight: bold;
+}
 
 #container footer{
     position: fixed;
@@ -106,6 +115,8 @@ form .getCaptcha:hover{
     color: grey;
     font-size: 20px;
     letter-spacing: 3px;
+    width: 100%;
+    left: 0;
 }
 #container footer a{
     text-decoration: none;

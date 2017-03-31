@@ -1,33 +1,34 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var helmet = require('helmet');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const helmet = require('helmet');
 
 
-//var index = require('./routes/index');
-var door = require('./routes/door');
-var question = require('./routes/question');
-var login = require('./routes/api/login');
-var logout = require('./routes/api/logout')
-var signup = require('./routes/api/signup');
-var newquestion = require('./routes/api/newquestion');
-var newanswer = require('./routes/api/newanswer');
-var getuserquestion = require('./routes/api/getuserquestion');
-var getuseranswer = require('./routes/api/getuseranswer');
-var getquestion = require('./routes/api/getquestion');
-var getanswers = require('./routes/api/getanswers');
-var changescore = require('./routes/api/changescore');
-var updateanswer = require('./routes/api/updateanswer');
-var getuserinfo = require('./routes/api/getuserinfo');
-var gettags = require('./routes/api/gettags');
-var useredit = require('./routes/api/useredit');
-var users = require('./routes/users');
+//const index = require('./routes/index');
+const door = require('./routes/door');
+const question = require('./routes/question');
+const login = require('./routes/api/login');
+const logout = require('./routes/api/logout')
+const signup = require('./routes/api/signup');
+const newquestion = require('./routes/api/newquestion');
+const newanswer = require('./routes/api/newanswer');
+const getuserquestion = require('./routes/api/getuserquestion');
+const getuseranswer = require('./routes/api/getuseranswer');
+const getquestion = require('./routes/api/getquestion');
+const getanswers = require('./routes/api/getanswers');
+const changescore = require('./routes/api/changescore');
+const updateanswer = require('./routes/api/updateanswer');
+const getuserinfo = require('./routes/api/getuserinfo');
+const gettags = require('./routes/api/gettags');
+const useredit = require('./routes/api/useredit');
+const users = require('./routes/users');
+const sendemail = require('./routes/api/sendemail');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -76,10 +77,11 @@ app.use('/api/updateanswer',updateanswer);
 app.use('/api/gettags',gettags);
 app.use('/api/useredit',useredit);
 app.use('/users/*',users); //个人主页
+app.use('/api/sendemail',sendemail);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
